@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "classrooms" ADD COLUMN     "startedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;

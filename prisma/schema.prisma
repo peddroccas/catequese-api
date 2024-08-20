@@ -14,9 +14,58 @@ datasource db {
 }
 
 model Catechist {
-  id    String @id @default(uuid())
-  name  String
-  email String @unique
+  id            String  @id @default(uuid())
+  name          String
+  email         String? @unique
+  password_hash String
+
+  classroom    Classroom @relation(fields: [classroom_id], references: [id])
+  classroom_id String
 
   @@map("catechists")
+}
+
+model Catechizing {
+  id   String @id @default(uuid())
+  name String
+
+  classroom    Classroom @relation(fields: [classroom_id], references: [id])
+  classroom_id String
+
+  payments Payment[]
+
+  @@map("catechizings")
+}
+
+model Classroom {
+  id         String   @id @default(uuid())
+  roomNumber Decimal? @unique
+  segment    String
+  startedAt  DateTime @default(now()) @db.Date
+
+  catechists   Catechist[]
+  catechizings Catechizing[]
+
+  @@map("classrooms")
+}
+
+model Payment {
+  id       String @id @default(uuid())
+  toBePaid Float  @default(150)
+
+  catechizing    Catechizing @relation(fields: [catechizing_id], references: [id])
+  catechizing_id String
+
+  installments Installment[]
+
+  @@map("payments")
+}
+
+model Installment {
+  id      String   @id @default(uuid())
+  payedAt DateTime
+  value   Float
+
+  payment    Payment @relation(fields: [payment_id], references: [id])
+  payment_id String
 }
