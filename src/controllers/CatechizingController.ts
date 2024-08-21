@@ -62,11 +62,11 @@ export class CatechizingController {
     request: FastifyRequest,
     reply: FastifyReply,
   ) {
-    const catechizingClassroomsParamsSchema = z.object({
+    const catechizingsPerClassroomParamsSchema = z.object({
       classroomId: z.string().uuid(),
     })
 
-    const { classroomId } = catechizingClassroomsParamsSchema.parse(
+    const { classroomId } = catechizingsPerClassroomParamsSchema.parse(
       request.params,
     )
 
@@ -81,14 +81,13 @@ export class CatechizingController {
     request: FastifyRequest,
     reply: FastifyReply,
   ) {
-    const catechizingClassroomsParamsSchema = z.object({
+    const addCatechizingToClassroomsParamsSchema = z.object({
       classroomId: z.string().uuid(),
       catechizingId: z.string().uuid(),
     })
 
-    console.log(request.params)
     const { classroomId, catechizingId } =
-      catechizingClassroomsParamsSchema.parse(request.params)
+      addCatechizingToClassroomsParamsSchema.parse(request.params)
 
     await prisma.catechizing.update({
       where: { id: catechizingId },

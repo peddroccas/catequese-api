@@ -41,4 +41,24 @@ export class CatechistController {
 
     return reply.status(201).send()
   }
+
+  static async addCatechistToClassroom(
+    request: FastifyRequest,
+    reply: FastifyReply,
+  ) {
+    const addCatechistToClassroomsParamsSchema = z.object({
+      classroomId: z.string().uuid(),
+      catechistId: z.string().uuid(),
+    })
+
+    const { classroomId, catechistId } =
+      addCatechistToClassroomsParamsSchema.parse(request.params)
+
+    await prisma.catechist.update({
+      where: { id: catechistId },
+      data: { classroom_id: classroomId },
+    })
+
+    reply.status(200).send()
+  }
 }
