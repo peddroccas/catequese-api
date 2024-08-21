@@ -9,12 +9,34 @@ export class CatechistController {
   ) {
     const newCatechistBodySchema = z.object({
       name: z.string(),
+      birthday: z.date(),
+      phone: z.string(),
+      receivedBaptism: z.boolean(),
+      receivedEucharist: z.boolean(),
+      receivedConfirmation: z.boolean(),
+      receivedMarriage: z.boolean(),
     })
 
-    const { name } = newCatechistBodySchema.parse(request.body)
+    const {
+      name,
+      birthday,
+      phone,
+      receivedBaptism,
+      receivedConfirmation,
+      receivedEucharist,
+      receivedMarriage,
+    } = newCatechistBodySchema.parse(request.body)
 
     await prisma.catechist.create({
-      data: { name },
+      data: {
+        name,
+        birthday,
+        phone,
+        receivedBaptism,
+        receivedConfirmation,
+        receivedEucharist,
+        receivedMarriage,
+      },
     })
 
     return reply.status(201).send()

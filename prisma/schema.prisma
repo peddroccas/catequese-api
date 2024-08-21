@@ -81,7 +81,7 @@ model Payment {
   toBePaid Float  @default(150)
 
   catechizing    Catechizing @relation(fields: [catechizing_id], references: [id])
-  catechizing_id String
+  catechizing_id String      @unique
 
   installments Installment[]
 
@@ -90,7 +90,7 @@ model Payment {
 
 model Installment {
   id      String   @id @default(uuid())
-  payedAt DateTime
+  payedAt DateTime @default(now())
   value   Float
 
   payment    Payment @relation(fields: [payment_id], references: [id])

@@ -32,7 +32,6 @@ export class ClassroomController {
       roomNumber: z.coerce.number(),
     })
 
-    console.log(request.params)
     const { roomNumber } = classroomBodySchema.parse(request.params)
 
     const classroomResponse = await prisma.classroom.findUnique({
