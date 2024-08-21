@@ -57,4 +57,23 @@ export class CatechizingController {
 
     return reply.status(201).send()
   }
+
+  static async getCatechizingByClassroom(
+    request: FastifyRequest,
+    reply: FastifyReply,
+  ) {
+    const catechizingClassroomsParamsSchema = z.object({
+      classroomId: z.string().uuid(),
+    })
+
+    const { classroomId } = catechizingClassroomsParamsSchema.parse(
+      request.params,
+    )
+
+    const catechizings = await prisma.catechizing.findMany({
+      where: { classroom_id: classroomId },
+    })
+
+    return reply.status(201).send(catechizings)
+  }
 }

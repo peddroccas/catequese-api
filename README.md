@@ -10,7 +10,8 @@
 - [x] Deve ser possível cadastrar novo catequista
 - [x] Deve ser possível cadastrar novo catequizando
 - [ ] Deve ser possível catequista se autenticar
-- [ ] Deve ser possível cadastrar novo parcela do catequizando
+- [x] Deve ser possível cadastrar novo parcela do catequizando
+- [ ] Deve ser possível visualizar catequizandos por sala
 
 
 ### Regras de Negócio (RNs)
