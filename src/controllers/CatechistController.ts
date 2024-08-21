@@ -61,4 +61,21 @@ export class CatechistController {
 
     reply.status(200).send()
   }
+
+  static async getCatechistByName(
+    request: FastifyRequest,
+    reply: FastifyReply,
+  ) {
+    const getCatechistByNameBodySchema = z.object({
+      name: z.string(),
+    })
+
+    const { name } = getCatechistByNameBodySchema.parse(request.query)
+
+    const catechist = await prisma.catechist.findFirst({
+      where: { name },
+    })
+
+    reply.status(200).send(catechist)
+  }
 }

@@ -7,4 +7,5 @@ export async function classroomsRoutes(app: FastifyInstance) {
     '/classrooms/:roomNumber',
     ClassroomController.getClassroomByRoomNumber,
   )
+  app.get('/classrooms', ClassroomController.getClassroomsNames)
 }

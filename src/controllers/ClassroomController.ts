@@ -40,4 +40,29 @@ export class ClassroomController {
 
     reply.status(200).send(classroomResponse)
   }
+
+  static async getClassroomsNames(
+    request: FastifyRequest,
+    reply: FastifyReply,
+  ) {
+    const classrooms = await prisma.classroom.findMany({
+      select: {
+        roomNumber: true,
+        catechists: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    })
+
+    const classroomNames: string[] = []
+    classrooms.forEach((classroom) => {
+      classroomNames.push(
+        `Turma ${classroom.roomNumber} - ${classroom.catechists.map((catechist) => catechist.name).join(' e ')}`,
+      )
+    })
+
+    reply.status(200).send(classroomNames)
+  }
 }
