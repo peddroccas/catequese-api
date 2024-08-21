@@ -8,9 +8,8 @@
 
 - [x] Deve ser possível cadastrar nova turma
 - [x] Deve ser possível cadastrar novo catequista
-- [ ] Deve ser possível cadastrar novo catequizando
+- [x] Deve ser possível cadastrar novo catequizando
 - [ ] Deve ser possível catequista se autenticar
-- [ ] Deve ser possível cadastrar novo catequista
 - [ ] Deve ser possível cadastrar novo parcela do catequizando
 
 

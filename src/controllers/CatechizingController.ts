@@ -13,9 +13,11 @@ export class CatechizingController {
 
     const { name } = newCatechizingBodySchema.parse(request.body)
 
-    await prisma.catechizing.create({
+    const { id } = await prisma.catechizing.create({
       data: { name },
     })
+
+    await prisma.payment.create({ data: { catechizing_id: id } })
 
     return reply.status(201).send()
   }
