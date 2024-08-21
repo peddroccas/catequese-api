@@ -7,19 +7,19 @@ export class PaymentController {
     request: FastifyRequest,
     reply: FastifyReply,
   ) {
-    const newInstallmentBodySchema = z.object({
-      payedAt: z.coerce.date(),
-      value: z.number(),
-    })
-
-    const newInstallmentParamsSchema = z.object({
-      catechizingId: z.string().uuid(),
-    })
-
-    const { catechizingId } = newInstallmentParamsSchema.parse(request.params)
-    const { payedAt, value } = newInstallmentBodySchema.parse(request.body)
-
     try {
+      const newInstallmentBodySchema = z.object({
+        payedAt: z.coerce.date(),
+        value: z.number(),
+      })
+
+      const newInstallmentParamsSchema = z.object({
+        catechizingId: z.string().uuid(),
+      })
+
+      const { catechizingId } = newInstallmentParamsSchema.parse(request.params)
+      const { payedAt, value } = newInstallmentBodySchema.parse(request.body)
+
       const payment = await prisma.payment.findUnique({
         where: { catechizing_id: catechizingId },
       })
@@ -45,7 +45,7 @@ export class PaymentController {
       })
       return reply.status(201).send()
     } catch (error) {
-      console.error(error)
+      reply.status(500).send({ error: 'Erro ao cadastrar nova parcela' })
     }
   }
 }

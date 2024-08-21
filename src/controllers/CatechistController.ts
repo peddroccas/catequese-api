@@ -7,28 +7,18 @@ export class CatechistController {
     request: FastifyRequest,
     reply: FastifyReply,
   ) {
-    const newCatechistBodySchema = z.object({
-      name: z.string(),
-      birthday: z.date(),
-      phone: z.string(),
-      receivedBaptism: z.boolean(),
-      receivedEucharist: z.boolean(),
-      receivedConfirmation: z.boolean(),
-      receivedMarriage: z.boolean(),
-    })
+    try {
+      const newCatechistBodySchema = z.object({
+        name: z.string(),
+        birthday: z.date(),
+        phone: z.string(),
+        receivedBaptism: z.boolean(),
+        receivedEucharist: z.boolean(),
+        receivedConfirmation: z.boolean(),
+        receivedMarriage: z.boolean(),
+      })
 
-    const {
-      name,
-      birthday,
-      phone,
-      receivedBaptism,
-      receivedConfirmation,
-      receivedEucharist,
-      receivedMarriage,
-    } = newCatechistBodySchema.parse(request.body)
-
-    await prisma.catechist.create({
-      data: {
+      const {
         name,
         birthday,
         phone,
@@ -36,46 +26,70 @@ export class CatechistController {
         receivedConfirmation,
         receivedEucharist,
         receivedMarriage,
-      },
-    })
+      } = newCatechistBodySchema.parse(request.body)
 
-    return reply.status(201).send()
+      await prisma.catechist.create({
+        data: {
+          name,
+          birthday,
+          phone,
+          receivedBaptism,
+          receivedConfirmation,
+          receivedEucharist,
+          receivedMarriage,
+        },
+      })
+
+      return reply.status(201).send()
+    } catch (error) {
+      reply.status(500).send({ error: 'Erro ao cadastrar novo catequista' })
+    }
   }
 
   static async addCatechistToClassroom(
     request: FastifyRequest,
     reply: FastifyReply,
   ) {
-    const addCatechistToClassroomsParamsSchema = z.object({
-      classroomId: z.string().uuid(),
-      catechistId: z.string().uuid(),
-    })
+    try {
+      const addCatechistToClassroomsParamsSchema = z.object({
+        classroomId: z.string().uuid(),
+        catechistId: z.string().uuid(),
+      })
 
-    const { classroomId, catechistId } =
-      addCatechistToClassroomsParamsSchema.parse(request.params)
+      const { classroomId, catechistId } =
+        addCatechistToClassroomsParamsSchema.parse(request.params)
 
-    await prisma.catechist.update({
-      where: { id: catechistId },
-      data: { classroom_id: classroomId },
-    })
+      await prisma.catechist.update({
+        where: { id: catechistId },
+        data: { classroom_id: classroomId },
+      })
 
-    reply.status(200).send()
+      reply.status(200).send()
+    } catch (error) {
+      reply.status(500).send({ error: 'Erro ao adicionar catequista a sala' })
+    }
   }
 
   static async getCatechistByName(
     request: FastifyRequest,
     reply: FastifyReply,
   ) {
-    const getCatechistByNameBodySchema = z.object({
-      name: z.string(),
-    })
+    try {
+      const getCatechistByNameBodySchema = z.object({
+        name: z.string(),
+      })
 
-    const { name } = getCatechistByNameBodySchema.parse(request.query)
+      const { name } = getCatechistByNameBodySchema.parse(request.query)
 
-    const catechist = await prisma.catechist.findFirst({
-      where: { name },
-    })
+      const catechist = await prisma.catechist.findFirst({
+        where: { name },
+      })
 
-    reply.status(200).send(catechist)
+      reply.status(200).send(catechist)
+    } catch (error) {
+      reply
+        .status(500)
+        .send({ error: 'Erro ao consultar catequista pelo nome' })
+    }
   }
 }
