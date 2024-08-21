@@ -14,8 +14,16 @@ datasource db {
 }
 
 model Catechist {
-  id            String  @id @default(uuid())
-  name          String
+  id       String   @id @default(uuid())
+  name     String
+  birthday DateTime
+  phone    String
+
+  receivedBaptism      Boolean
+  receivedEucharist    Boolean
+  receivedConfirmation Boolean
+  receivedMarriage     Boolean?
+
   email         String? @unique
   password_hash String?
 
@@ -26,15 +34,34 @@ model Catechist {
 }
 
 model Catechizing {
-  id   String @id @default(uuid())
-  name String
+  id                     String   @id @default(uuid())
+  name                   String
+  birthday               DateTime
+  age                    Decimal?
+  adress                 String
+  personWithSpecialNeeds String?
+
+  receivedBaptism   Boolean
+  receivedEucharist Boolean
+  receivedMarriage  Boolean?
+
+  payments Payment[]
+  parents  Parent[]
 
   classroom    Classroom? @relation(fields: [classroom_id], references: [id])
   classroom_id String?
 
-  payments Payment[]
-
   @@map("catechizings")
+}
+
+model Parent {
+  id      String @id @default(uuid())
+  name    String
+  phone   String
+  kinship String
+
+  catechizing    Catechizing @relation(fields: [catechizing_id], references: [id])
+  catechizing_id String
 }
 
 model Classroom {
