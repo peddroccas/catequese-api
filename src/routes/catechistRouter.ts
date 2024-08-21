@@ -1,8 +1,6 @@
 import { FastifyInstance } from 'fastify'
-import { ClassroomController } from '../controllers/ClassroomController'
+import { CatechistController } from '../controllers/CatechistController'
 
 export async function catechistsRoutes(app: FastifyInstance) {
-  app.get('/catechists', () => {
-    console.log('123')
-  })
+  app.post('/catechists', CatechistController.createNewCatechist)
 }

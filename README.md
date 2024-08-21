@@ -7,7 +7,7 @@
 ### Requisitos Funcionais (RFs)
 
 - [x] Deve ser possível cadastrar nova turma
-- [ ] Deve ser possível cadastrar novo catequista
+- [x] Deve ser possível cadastrar novo catequista
 - [ ] Deve ser possível cadastrar novo catequizando
 - [ ] Deve ser possível catequista se autenticar
 - [ ] Deve ser possível cadastrar novo catequista

@@ -17,10 +17,10 @@ model Catechist {
   id            String  @id @default(uuid())
   name          String
   email         String? @unique
-  password_hash String
+  password_hash String?
 
-  classroom    Classroom @relation(fields: [classroom_id], references: [id])
-  classroom_id String
+  classroom    Classroom? @relation(fields: [classroom_id], references: [id])
+  classroom_id String?
 
   @@map("catechists")
 }
@@ -29,8 +29,8 @@ model Catechizing {
   id   String @id @default(uuid())
   name String
 
-  classroom    Classroom @relation(fields: [classroom_id], references: [id])
-  classroom_id String
+  classroom    Classroom? @relation(fields: [classroom_id], references: [id])
+  classroom_id String?
 
   payments Payment[]
 
