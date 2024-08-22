@@ -61,7 +61,7 @@ export class ClassroomController {
           'Catequizandos Adultos',
           'Catecúmenos Adultos',
           'Sementinha',
-          'preeucaristia',
+          'Pré-Eucaristia',
         ]),
       })
 

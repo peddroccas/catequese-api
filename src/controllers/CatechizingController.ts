@@ -10,7 +10,7 @@ export class CatechizingController {
     try {
       const newCatechizingBodySchema = z.object({
         name: z.string(),
-        birthday: z.date(),
+        birthday: z.coerce.date(),
         adress: z.string(),
         personWithSpecialNeeds: z.string(),
         receivedBaptism: z.boolean(),

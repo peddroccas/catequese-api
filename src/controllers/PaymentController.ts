@@ -55,7 +55,7 @@ export class PaymentController {
   ) {
     try {
       const newInstallmentParamsSchema = z.object({
-        catechizingName: z.string().uuid(),
+        catechizingName: z.string(),
       })
 
       const { catechizingName } = newInstallmentParamsSchema.parse(
@@ -73,7 +73,7 @@ export class PaymentController {
 
       return reply.status(200).send(payment)
     } catch (error) {
-      reply.status(500).send({ error: 'Erro ao cadastrar nova parcela' })
+      reply.status(500).send({ error: 'Erro ao consultar parcelas' })
     }
   }
 }
