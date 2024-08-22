@@ -48,4 +48,32 @@ export class PaymentController {
       reply.status(500).send({ error: 'Erro ao cadastrar nova parcela' })
     }
   }
+
+  static async getPaymentByCatechizing(
+    request: FastifyRequest,
+    reply: FastifyReply,
+  ) {
+    try {
+      const newInstallmentParamsSchema = z.object({
+        catechizingName: z.string().uuid(),
+      })
+
+      const { catechizingName } = newInstallmentParamsSchema.parse(
+        request.params,
+      )
+
+      const payment = await prisma.payment.findFirst({
+        where: { catechizing: { name: catechizingName } },
+        select: {
+          installments: true,
+          toBePaid: true,
+          id: true,
+        },
+      })
+
+      return reply.status(200).send(payment)
+    } catch (error) {
+      reply.status(500).send({ error: 'Erro ao cadastrar nova parcela' })
+    }
+  }
 }

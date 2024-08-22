@@ -68,18 +68,25 @@ export class CatechizingController {
   ) {
     try {
       const catechizingsPerClassroomParamsSchema = z.object({
-        classroomId: z.string().uuid(),
+        classroomName: z.string(),
       })
 
-      const { classroomId } = catechizingsPerClassroomParamsSchema.parse(
+      const { classroomName } = catechizingsPerClassroomParamsSchema.parse(
         request.params,
       )
 
+      const roomNumberMatch = classroomName.match(/Turma (\d+) -/)
+
+      const roomNumber = roomNumberMatch ? roomNumberMatch[1] : null
+
       const catechizings = await prisma.catechizing.findMany({
-        where: { classroom_id: classroomId },
+        where: { classroom: { roomNumber } },
+        select: { name: true },
       })
 
-      reply.status(201).send(catechizings)
+      reply
+        .status(201)
+        .send(catechizings.map((catechizing) => catechizing.name))
     } catch (error) {
       reply
         .status(500)

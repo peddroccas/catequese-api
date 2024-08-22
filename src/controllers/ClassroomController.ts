@@ -49,13 +49,28 @@ export class ClassroomController {
     }
   }
 
-  static async getClassroomsNames(
+  static async getClassroomsNamesBySegment(
     request: FastifyRequest,
     reply: FastifyReply,
   ) {
     try {
+      const classroomBodySchema = z.object({
+        segment: z.enum([
+          '1° Eucaristia',
+          'Crisma',
+          'Catequizandos Adultos',
+          'Catecúmenos Adultos',
+          'Sementinha',
+          'preeucaristia',
+        ]),
+      })
+
+      const { segment } = classroomBodySchema.parse(request.params)
+
       const classrooms = await prisma.classroom.findMany({
+        where: { segment },
         select: {
+          id: true,
           roomNumber: true,
           catechists: {
             select: {
