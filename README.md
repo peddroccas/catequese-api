@@ -31,6 +31,13 @@
 
 ## 🛠 Tecnologias Utilizadas
 
-- **Backend:** Node.js
-- **Banco de Dados:** PostgreSQL
-- **Autenticação:** JWT (Json Web Token)
+## 🚀 Tecnologias Utilizadas
+
+## 🚀 Tecnologias Utilizadas
+
+ ![Node.js](https://img.shields.io/badge/-Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
+ ![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+ ![Fastify](https://img.shields.io/badge/-Fastify-000000?style=for-the-badge&logo=fastify&logoColor=white)
+ ![JWT](https://img.shields.io/badge/-JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
+
+
