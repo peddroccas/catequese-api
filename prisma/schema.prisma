@@ -18,6 +18,7 @@ model Catechist {
   name     String
   birthday DateTime
   phone    String
+  adress   String
 
   receivedBaptism      Boolean
   receivedEucharist    Boolean
@@ -41,9 +42,9 @@ model Catechizing {
   adress                 String
   personWithSpecialNeeds String?
 
-  receivedBaptism   Boolean
-  receivedEucharist Boolean
-  receivedMarriage  Boolean?
+  hasReceivedBaptism   Boolean
+  hasReceivedEucharist Boolean
+  hasReceivedMarriage  Boolean @default(false)
 
   payments Payment[]
   parents  Parent[]
@@ -77,8 +78,9 @@ model Classroom {
 }
 
 model Payment {
-  id       String @id @default(uuid())
-  toBePaid Float  @default(150)
+  id                String  @id @default(uuid())
+  toBePaid          Float   @default(150)
+  hasReceivedTickeT Boolean @default(false)
 
   catechizing    Catechizing @relation(fields: [catechizing_id], references: [id])
   catechizing_id String      @unique
