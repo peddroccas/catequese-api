@@ -63,6 +63,8 @@ model Parent {
 
   catechizing    Catechizing @relation(fields: [catechizing_id], references: [id])
   catechizing_id String
+
+  @@map("parents")
 }
 
 model Classroom {
@@ -97,4 +99,6 @@ model Installment {
 
   payment    Payment @relation(fields: [payment_id], references: [id])
   payment_id String
+
+  @@map("installments")
 }
