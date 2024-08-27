@@ -13,9 +13,9 @@ export class CatechizingController {
         birthday: z.coerce.date(),
         adress: z.string(),
         personWithSpecialNeeds: z.boolean(),
-        receivedBaptism: z.boolean(),
-        receivedEucharist: z.boolean(),
-        receivedMarriage: z.boolean(),
+        hasReceivedBaptism: z.boolean(),
+        hasReceivedEucharist: z.boolean(),
+        hasReceivedMarriage: z.boolean(),
         parent: z.object({
           name: z.string(),
           phone: z.string(),
@@ -28,9 +28,9 @@ export class CatechizingController {
         adress,
         birthday,
         personWithSpecialNeeds,
-        receivedBaptism,
-        receivedEucharist,
-        receivedMarriage,
+        hasReceivedBaptism,
+        hasReceivedEucharist,
+        hasReceivedMarriage,
         parent,
       } = newCatechizingBodySchema.parse(request.body)
 
@@ -39,9 +39,9 @@ export class CatechizingController {
           name,
           adress,
           birthday,
-          receivedBaptism,
-          receivedEucharist,
-          receivedMarriage,
+          hasReceivedBaptism,
+          hasReceivedEucharist,
+          hasReceivedMarriage,
           personWithSpecialNeeds,
         },
       })
