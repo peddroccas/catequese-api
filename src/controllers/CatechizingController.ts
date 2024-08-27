@@ -12,7 +12,7 @@ export class CatechizingController {
         name: z.string(),
         birthday: z.coerce.date(),
         adress: z.string(),
-        personWithSpecialNeeds: z.string(),
+        personWithSpecialNeeds: z.boolean(),
         receivedBaptism: z.boolean(),
         receivedEucharist: z.boolean(),
         receivedMarriage: z.boolean(),
