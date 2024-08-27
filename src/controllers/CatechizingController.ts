@@ -16,7 +16,7 @@ export class CatechizingController {
         hasReceivedBaptism: z.boolean(),
         hasReceivedEucharist: z.boolean(),
         hasReceivedMarriage: z.boolean(),
-        parent: z.object({
+        parents: z.object({
           name: z.string(),
           phone: z.string(),
           kinship: z.string(),
@@ -31,7 +31,7 @@ export class CatechizingController {
         hasReceivedBaptism,
         hasReceivedEucharist,
         hasReceivedMarriage,
-        parent,
+        parents,
       } = newCatechizingBodySchema.parse(request.body)
 
       const { id } = await prisma.catechizing.create({
@@ -50,9 +50,9 @@ export class CatechizingController {
       await prisma.parent.create({
         data: {
           catechizing_id: id,
-          name: parent.name,
-          phone: parent.phone,
-          kinship: parent.kinship,
+          name: parents.name,
+          phone: parents.phone,
+          kinship: parents.kinship,
         },
       })
 

@@ -47,7 +47,7 @@ model Catechizing {
   hasReceivedMarriage  Boolean @default(false)
 
   payments Payment[]
-  parents  Parent[]
+  parents  Parent[]?
 
   classroom    Classroom? @relation(fields: [classroom_id], references: [id])
   classroom_id String?
