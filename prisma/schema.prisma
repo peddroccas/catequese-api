@@ -39,7 +39,7 @@ model Catechizing {
   name                   String
   birthday               DateTime
   age                    Decimal?
-  adress                 String
+  address                String
   personWithSpecialNeeds Boolean?
 
   hasReceivedBaptism   Boolean

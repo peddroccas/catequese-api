@@ -11,7 +11,7 @@ export class CatechizingController {
       const newCatechizingBodySchema = z.object({
         name: z.string(),
         birthday: z.coerce.date(),
-        adress: z.string(),
+        address: z.string(),
         personWithSpecialNeeds: z.boolean(),
         hasReceivedBaptism: z.boolean(),
         hasReceivedEucharist: z.boolean(),
@@ -25,7 +25,7 @@ export class CatechizingController {
 
       const {
         name,
-        adress,
+        address,
         birthday,
         personWithSpecialNeeds,
         hasReceivedBaptism,
@@ -37,7 +37,7 @@ export class CatechizingController {
       const { id } = await prisma.catechizing.create({
         data: {
           name,
-          adress,
+          address,
           birthday,
           hasReceivedBaptism,
           hasReceivedEucharist,
