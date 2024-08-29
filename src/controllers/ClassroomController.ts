@@ -55,14 +55,16 @@ export class ClassroomController {
   ) {
     try {
       const classroomBodySchema = z.object({
-        segment: z.enum([
-          '1° Eucaristia',
-          'Crisma',
-          'Catequizandos Adultos',
-          'Catecúmenos Adultos',
-          'Sementinha',
-          'Pré-Eucaristia',
-        ]),
+        segment: z
+          .enum([
+            '1° Eucaristia',
+            'Crisma',
+            'Catequizandos Adultos',
+            'Catecúmenos Adultos',
+            'Sementinha',
+            'Pré-Eucaristia',
+          ])
+          .optional(),
       })
 
       const { segment } = classroomBodySchema.parse(request.params)
