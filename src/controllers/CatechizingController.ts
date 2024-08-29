@@ -77,12 +77,10 @@ export class CatechizingController {
 
       const catechizings = await prisma.catechizing.findMany({
         where: { classroom: { id: classroomId } },
-        select: { name: true },
+        select: { name: true, id: true },
       })
 
-      reply
-        .status(201)
-        .send(catechizings.map((catechizing) => catechizing.name))
+      reply.status(201).send(catechizings)
     } catch (error) {
       reply
         .status(500)
