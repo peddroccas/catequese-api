@@ -11,12 +11,12 @@ export class CatechizingController {
       const newCatechizingBodySchema = z.object({
         name: z.string(),
         birthday: z.coerce.date(),
-        adress: z.string(),
-        personWithSpecialNeeds: z.string(),
-        receivedBaptism: z.boolean(),
-        receivedEucharist: z.boolean(),
-        receivedMarriage: z.boolean(),
-        parent: z.object({
+        address: z.string(),
+        personWithSpecialNeeds: z.boolean(),
+        hasReceivedBaptism: z.boolean(),
+        hasReceivedEucharist: z.boolean(),
+        hasReceivedMarriage: z.boolean(),
+        parents: z.object({
           name: z.string(),
           phone: z.string(),
           kinship: z.string(),
@@ -25,23 +25,23 @@ export class CatechizingController {
 
       const {
         name,
-        adress,
+        address,
         birthday,
         personWithSpecialNeeds,
-        receivedBaptism,
-        receivedEucharist,
-        receivedMarriage,
-        parent,
+        hasReceivedBaptism,
+        hasReceivedEucharist,
+        hasReceivedMarriage,
+        parents,
       } = newCatechizingBodySchema.parse(request.body)
 
       const { id } = await prisma.catechizing.create({
         data: {
           name,
-          adress,
+          address,
           birthday,
-          receivedBaptism,
-          receivedEucharist,
-          receivedMarriage,
+          hasReceivedBaptism,
+          hasReceivedEucharist,
+          hasReceivedMarriage,
           personWithSpecialNeeds,
         },
       })
@@ -50,15 +50,15 @@ export class CatechizingController {
       await prisma.parent.create({
         data: {
           catechizing_id: id,
-          name: parent.name,
-          phone: parent.phone,
-          kinship: parent.kinship,
+          name: parents.name,
+          phone: parents.phone,
+          kinship: parents.kinship,
         },
       })
 
       reply.status(201).send()
     } catch (error) {
-      reply.status(500).send({ error: 'Erro ao cadastrar novo catequizando' })
+      reply.status(500).send({ error })
     }
   }
 

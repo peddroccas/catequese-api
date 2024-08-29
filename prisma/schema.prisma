@@ -9,7 +9,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -18,7 +18,7 @@ model Catechist {
   name     String
   birthday DateTime
   phone    String
-  adress   String
+  address  String
 
   receivedBaptism      Boolean
   receivedEucharist    Boolean
@@ -39,8 +39,8 @@ model Catechizing {
   name                   String
   birthday               DateTime
   age                    Decimal?
-  adress                 String
-  personWithSpecialNeeds String?
+  address                String
+  personWithSpecialNeeds Boolean?
 
   hasReceivedBaptism   Boolean
   hasReceivedEucharist Boolean

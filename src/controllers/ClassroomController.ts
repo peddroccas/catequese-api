@@ -24,7 +24,7 @@ export class ClassroomController {
 
       reply.status(201).send()
     } catch (error) {
-      reply.status(500).send({ error: 'Erro ao criar nova sala' })
+      reply.status(500).send({ error: 'Erro ao criar nova sala' + error })
     }
   }
 
