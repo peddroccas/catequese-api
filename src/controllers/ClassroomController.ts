@@ -34,13 +34,33 @@ export class ClassroomController {
   ) {
     try {
       const classroomBodySchema = z.object({
-        roomNumber: z.coerce.number(),
+        classroomId: z.string().uuid(),
       })
 
-      const { roomNumber } = classroomBodySchema.parse(request.params)
+      const { classroomId } = classroomBodySchema.parse(request.params)
 
       const classroomResponse = await prisma.classroom.findUnique({
-        where: { roomNumber },
+        where: { id: classroomId },
+        select: {
+          catechizings: {
+            select: {
+              id: true,
+              name: true,
+              birthday: true,
+              payments: true,
+              hasReceivedBaptism: true,
+              personWithSpecialNeeds: true,
+            },
+          },
+          id: true,
+          roomNumber: true,
+          catechists: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
       })
 
       reply.status(200).send(classroomResponse)
@@ -114,51 +134,18 @@ export class ClassroomController {
         },
       })
 
-      const classroomNames: string[] = []
+      const classroomNames: {
+        id: string
+        classroomName: string
+      }[] = []
       classrooms.forEach((classroom) => {
-        classroomNames.push(
-          `Turma ${classroom.roomNumber} - ${classroom.catechists.map((catechist) => catechist.name).join(' e ')}`,
-        )
+        classroomNames.push({
+          id: classroom.id,
+          classroomName: `Turma ${classroom.roomNumber} - ${classroom.catechists.map((catechist) => catechist.name).join(' e ')}`,
+        })
       })
 
       reply.status(200).send(classroomNames)
-    } catch (error) {
-      reply.status(500).send({ error: 'Erro ao consultar nome das salas' })
-    }
-  }
-
-  static async getClassrooms(request: FastifyRequest, reply: FastifyReply) {
-    try {
-      const classroomBodySchema = z.object({
-        roomNumber: z.coerce.number(),
-      })
-
-      const { roomNumber } = classroomBodySchema.parse(request.params)
-      const classroom = await prisma.classroom.findMany({
-        where: { roomNumber },
-        select: {
-          catechizings: {
-            select: {
-              id: true,
-              name: true,
-              birthday: true,
-              payments: true,
-              hasReceivedBaptism: true,
-              personWithSpecialNeeds: true,
-            },
-          },
-          id: true,
-          roomNumber: true,
-          catechists: {
-            select: {
-              id: true,
-              name: true,
-            },
-          },
-        },
-      })
-
-      reply.status(200).send(classroom)
     } catch (error) {
       reply.status(500).send({ error: 'Erro ao consultar nome das salas' })
     }

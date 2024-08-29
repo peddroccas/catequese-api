@@ -4,7 +4,7 @@ import { ClassroomController } from '../controllers/ClassroomController'
 export async function classroomsRoutes(app: FastifyInstance) {
   app.post('/classrooms', ClassroomController.createNewClassroom)
   app.get(
-    '/classrooms/:roomNumber',
+    '/classrooms/:classroomId',
     ClassroomController.getClassroomByRoomNumber,
   )
   app.get(
@@ -12,6 +12,4 @@ export async function classroomsRoutes(app: FastifyInstance) {
     ClassroomController.getClassroomsNamesBySegment,
   )
   app.get('/classrooms/names', ClassroomController.getClassroomsNames)
-
-  app.get('/classrooms', ClassroomController.getClassrooms)
 }
