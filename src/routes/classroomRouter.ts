@@ -11,4 +11,7 @@ export async function classroomsRoutes(app: FastifyInstance) {
     '/classrooms/names/:segment',
     ClassroomController.getClassroomsNamesBySegment,
   )
+  app.get('/classrooms/names', ClassroomController.getClassroomsNames)
+
+  app.get('/classrooms', ClassroomController.getClassrooms)
 }
