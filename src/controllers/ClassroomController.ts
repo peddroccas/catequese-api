@@ -28,10 +28,7 @@ export class ClassroomController {
     }
   }
 
-  static async getClassroomByRoomNumber(
-    request: FastifyRequest,
-    reply: FastifyReply,
-  ) {
+  static async getClassroomById(request: FastifyRequest, reply: FastifyReply) {
     try {
       const classroomBodySchema = z.object({
         classroomId: z.string().uuid(),
@@ -53,6 +50,8 @@ export class ClassroomController {
             },
           },
           id: true,
+          segment: true,
+          startedAt: true,
           roomNumber: true,
           catechists: {
             select: {
