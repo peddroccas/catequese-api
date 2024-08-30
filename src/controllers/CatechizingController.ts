@@ -12,6 +12,7 @@ export class CatechizingController {
         name: z.string(),
         birthday: z.coerce.date(),
         address: z.string(),
+        classroomId: z.string().uuid(),
         personWithSpecialNeeds: z.boolean(),
         hasReceivedBaptism: z.boolean(),
         hasReceivedEucharist: z.boolean(),
@@ -27,6 +28,7 @@ export class CatechizingController {
         name,
         address,
         birthday,
+        classroomId,
         personWithSpecialNeeds,
         hasReceivedBaptism,
         hasReceivedEucharist,
@@ -43,6 +45,7 @@ export class CatechizingController {
           hasReceivedEucharist,
           hasReceivedMarriage,
           personWithSpecialNeeds,
+          classroom_id: classroomId,
         },
       })
 
