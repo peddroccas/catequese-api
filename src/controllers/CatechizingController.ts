@@ -45,14 +45,14 @@ export class CatechizingController {
           hasReceivedEucharist,
           hasReceivedMarriage,
           personWithSpecialNeeds,
-          classroom_id: classroomId,
+          classroomId,
         },
       })
 
-      await prisma.payment.create({ data: { catechizing_id: id } })
+      await prisma.payment.create({ data: { catechizingId: id } })
       await prisma.parent.create({
         data: {
-          catechizing_id: id,
+          catechizingId: id,
           name: parents.name,
           phone: parents.phone,
           kinship: parents.kinship,
@@ -106,7 +106,7 @@ export class CatechizingController {
 
       await prisma.catechizing.update({
         where: { id: catechizingId },
-        data: { classroom_id: classroomId },
+        data: { classroomId },
       })
 
       reply.status(200).send()
