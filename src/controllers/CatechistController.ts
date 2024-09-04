@@ -17,6 +17,7 @@ export class CatechistController {
         receivedEucharist: z.boolean(),
         receivedConfirmation: z.boolean(),
         receivedMarriage: z.boolean(),
+        classroomId: z.string().uuid(),
       })
 
       const {
@@ -28,6 +29,7 @@ export class CatechistController {
         receivedConfirmation,
         receivedEucharist,
         receivedMarriage,
+        classroomId,
       } = newCatechistBodySchema.parse(request.body)
 
       await prisma.catechist.create({
@@ -40,6 +42,7 @@ export class CatechistController {
           receivedConfirmation,
           receivedEucharist,
           receivedMarriage,
+          classroom_id: classroomId,
         },
       })
 
