@@ -9,20 +9,18 @@ export class PaymentController {
   ) {
     try {
       const newInstallmentParamsSchema = z.object({
-        catechizingName: z.string(),
+        catechizingId: z.string(),
       })
       const newInstallmentBodySchema = z.object({
         payedAt: z.coerce.date(),
         value: z.number(),
       })
 
-      const { catechizingName } = newInstallmentParamsSchema.parse(
-        request.params,
-      )
+      const { catechizingId } = newInstallmentParamsSchema.parse(request.params)
       const { payedAt, value } = newInstallmentBodySchema.parse(request.body)
 
       const payment = await prisma.payment.findFirst({
-        where: { catechizing: { name: catechizingName } },
+        where: { catechizing: { id: catechizingId } },
       })
 
       function isValueBiggestThenToBePaid() {
@@ -33,7 +31,7 @@ export class PaymentController {
       isValueBiggestThenToBePaid()
 
       await prisma.payment.updateMany({
-        where: { catechizing: { name: catechizingName } },
+        where: { catechizing: { id: catechizingId } },
         data: { toBePaid: payment!.toBePaid - value },
       })
 
@@ -56,13 +54,13 @@ export class PaymentController {
   ) {
     try {
       const getPaymentParamsSchema = z.object({
-        catechizingName: z.string(),
+        catechizingId: z.string(),
       })
 
-      const { catechizingName } = getPaymentParamsSchema.parse(request.params)
+      const { catechizingId } = getPaymentParamsSchema.parse(request.params)
 
       const payment = await prisma.payment.findFirst({
-        where: { catechizing: { name: catechizingName } },
+        where: { catechizing: { id: catechizingId } },
         select: {
           installments: true,
           toBePaid: true,
