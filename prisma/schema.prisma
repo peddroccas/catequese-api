@@ -28,8 +28,8 @@ model Catechist {
   email         String? @unique
   password_hash String?
 
-  classroom    Classroom? @relation(fields: [classroom_id], references: [id])
-  classroom_id String?
+  classroom   Classroom? @relation(fields: [classroomId], references: [id])
+  classroomId String?
 
   @@map("catechists")
 }
@@ -49,8 +49,8 @@ model Catechizing {
   payments Payment[]
   parents  Parent[]
 
-  classroom    Classroom? @relation(fields: [classroom_id], references: [id])
-  classroom_id String?
+  classroom   Classroom? @relation(fields: [classroomId], references: [id])
+  classroomId String?
 
   @@map("catechizings")
 }
@@ -61,8 +61,8 @@ model Parent {
   phone   String
   kinship String
 
-  catechizing    Catechizing @relation(fields: [catechizing_id], references: [id])
-  catechizing_id String
+  catechizing   Catechizing @relation(fields: [catechizingId], references: [id])
+  catechizingId String
 
   @@map("parents")
 }
@@ -84,8 +84,8 @@ model Payment {
   toBePaid          Float   @default(150)
   hasReceivedTicket Boolean @default(false)
 
-  catechizing    Catechizing @relation(fields: [catechizing_id], references: [id])
-  catechizing_id String      @unique
+  catechizing   Catechizing @relation(fields: [catechizingId], references: [id])
+  catechizingId String      @unique
 
   installments Installment[]
 

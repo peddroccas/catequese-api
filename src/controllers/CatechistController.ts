@@ -78,20 +78,22 @@ export class CatechistController {
 
   static async getCatechists(request: FastifyRequest, reply: FastifyReply) {
     try {
-      const catechist = await prisma.catechist.findMany({
-        select: {
-          id: true,
-          address: true,
-          birthday: true,
-          classroom_id: true,
-          name: true,
-          phone: true,
-          hasReceivedBaptism: true,
-          hasReceivedConfirmation: true,
-          hasReceivedEucharist: true,
-          hasReceivedMarriage: true,
-        },
-      })
+      const catechists = await prisma.catechist
+        .findMany({
+          select: {
+            id: true,
+            address: true,
+            birthday: true,
+            classroom_id: true,
+            name: true,
+            phone: true,
+            hasReceivedBaptism: true,
+            hasReceivedConfirmation: true,
+            hasReceivedEucharist: true,
+            hasReceivedMarriage: true,
+          },
+        })
+        .then(catechists)
 
       reply.status(200).send(catechist)
     } catch (error) {
