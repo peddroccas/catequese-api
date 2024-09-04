@@ -97,8 +97,8 @@ model Installment {
   payedAt DateTime @default(now())
   value   Float
 
-  payment    Payment @relation(fields: [payment_id], references: [id])
-  payment_id String
+  payment   Payment @relation(fields: [paymentId], references: [id])
+  paymentId String
 
   @@map("installments")
 }

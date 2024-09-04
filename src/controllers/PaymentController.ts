@@ -37,7 +37,7 @@ export class PaymentController {
 
       await prisma.installment.create({
         data: {
-          payment_id: payment!.id,
+          paymentId: payment!.id,
           value,
           payedAt,
         },
