@@ -48,7 +48,9 @@ export class CatechistController {
 
       return reply.status(201).send()
     } catch (error) {
-      reply.status(500).send({ error: 'Erro ao cadastrar novo catequista' })
+      reply
+        .status(500)
+        .send({ error: 'Erro ao cadastrar novo catequista' + error })
     }
   }
 
