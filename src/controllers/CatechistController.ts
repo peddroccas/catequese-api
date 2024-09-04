@@ -72,7 +72,7 @@ export class CatechistController {
 
       reply.status(200).send()
     } catch (error) {
-      reply.status(500).send({ error: 'Erro ao adicionar catequista a sala' })
+      reply.status(500).send(error)
     }
   }
 
@@ -95,9 +95,7 @@ export class CatechistController {
 
       reply.status(200).send(catechist)
     } catch (error) {
-      reply
-        .status(500)
-        .send({ error: 'Erro ao consultar catequista pelo nome' })
+      reply.status(500).send(error)
     }
   }
 }
