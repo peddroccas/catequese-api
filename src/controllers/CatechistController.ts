@@ -10,7 +10,7 @@ export class CatechistController {
     try {
       const newCatechistBodySchema = z.object({
         name: z.string(),
-        birthday: z.date(),
+        birthday: z.coerce.date(),
         phone: z.string(),
         address: z.string(),
         receivedBaptism: z.boolean(),
