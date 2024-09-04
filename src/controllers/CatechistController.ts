@@ -76,19 +76,21 @@ export class CatechistController {
     }
   }
 
-  static async getCatechistByName(
-    request: FastifyRequest,
-    reply: FastifyReply,
-  ) {
+  static async getCatechists(request: FastifyRequest, reply: FastifyReply) {
     try {
-      const getCatechistByNameBodySchema = z.object({
-        name: z.string(),
-      })
-
-      const { name } = getCatechistByNameBodySchema.parse(request.query)
-
-      const catechist = await prisma.catechist.findFirst({
-        where: { name },
+      const catechist = await prisma.catechist.findMany({
+        select: {
+          id: true,
+          address: true,
+          birthday: true,
+          classroom_id: true,
+          name: true,
+          phone: true,
+          receivedBaptism: true,
+          receivedConfirmation: true,
+          receivedEucharist: true,
+          receivedMarriage: true,
+        },
       })
 
       reply.status(200).send(catechist)
