@@ -20,10 +20,10 @@ model Catechist {
   phone    String
   address  String
 
-  receivedBaptism      Boolean
-  receivedEucharist    Boolean
-  receivedConfirmation Boolean
-  receivedMarriage     Boolean?
+  hasReceivedBaptism      Boolean
+  hasReceivedEucharist    Boolean
+  hasReceivedConfirmation Boolean
+  hasReceivedMarriage     Boolean?
 
   email         String? @unique
   password_hash String?
