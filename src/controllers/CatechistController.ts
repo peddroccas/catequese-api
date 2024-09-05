@@ -91,6 +91,7 @@ export class CatechistController {
           hasReceivedEucharist: true,
           hasReceivedMarriage: true,
         },
+        orderBy: { name: 'asc' },
       })
 
       reply.status(200).send(catechists)

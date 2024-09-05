@@ -79,6 +79,7 @@ export class ClassroomController {
   ) {
     try {
       const classrooms = await prisma.classroom.findMany({
+        orderBy: { roomNumber: 'asc' },
         select: {
           id: true,
           roomNumber: true,
@@ -129,6 +130,7 @@ export class ClassroomController {
       const { segment } = classroomBodySchema.parse(request.params)
 
       const classrooms = await prisma.classroom.findMany({
+        orderBy: { roomNumber: 'asc' },
         where: { segment },
         select: {
           id: true,

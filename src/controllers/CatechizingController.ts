@@ -91,6 +91,7 @@ export class CatechizingController {
       const catechizings = await prisma.catechizing.findMany({
         where: { classroom: { id: classroomId } },
         select: { name: true, id: true },
+        orderBy: { name: 'asc' },
       })
 
       reply.status(201).send(catechizings)
