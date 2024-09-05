@@ -79,7 +79,7 @@ export class CatechistController {
     }
   }
 
-  static async getCatechists(request: FastifyRequest, reply: FastifyReply) {
+  static async getAllCatechists(request: FastifyRequest, reply: FastifyReply) {
     try {
       const catechists = await prisma.catechist.findMany({
         select: {

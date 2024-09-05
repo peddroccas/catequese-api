@@ -96,9 +96,31 @@ export class CatechizingController {
 
       reply.status(201).send(catechizings)
     } catch (error) {
-      reply
-        .status(500)
-        .send({ error: 'Erro ao consultar catequizandos por sala' })
+      reply.status(500).send(error)
+    }
+  }
+
+  static async getAllCatechizing(request: FastifyRequest, reply: FastifyReply) {
+    try {
+      const catechizings = await prisma.catechizing.findMany({
+        select: {
+          id: true,
+          name: true,
+          address: true,
+          birthday: true,
+          classroomId: true,
+          hasReceivedBaptism: true,
+          hasReceivedEucharist: true,
+          hasReceivedMarriage: true,
+          payments: true,
+          parents: { select: { name: true, phone: true, kinship: true } },
+        },
+        orderBy: { name: 'asc' },
+      })
+
+      reply.status(201).send(catechizings)
+    } catch (error) {
+      reply.status(500).send(error)
     }
   }
 
@@ -122,9 +144,7 @@ export class CatechizingController {
 
       reply.status(200).send()
     } catch (error) {
-      reply
-        .status(500)
-        .send({ error: 'Erro ao cadastrar catequizando em uma sala' })
+      reply.status(500).send(error)
     }
   }
 }
