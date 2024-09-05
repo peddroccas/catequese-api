@@ -157,4 +157,22 @@ export class ClassroomController {
       reply.status(500).send({ error: 'Erro ao consultar nome das salas' })
     }
   }
+
+  static async deleteClassroom(request: FastifyRequest, reply: FastifyReply) {
+    try {
+      const deleteBodySchema = z.object({
+        classroomId: z.string().uuid(),
+      })
+
+      const { classroomId } = deleteBodySchema.parse(request.params)
+
+      await prisma.classroom.delete({
+        where: { id: classroomId },
+      })
+
+      reply.status(200).send({ message: 'Turma deletada com sucesso' })
+    } catch (error) {
+      reply.status(500).send(error)
+    }
+  }
 }

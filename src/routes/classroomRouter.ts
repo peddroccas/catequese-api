@@ -9,4 +9,5 @@ export async function classroomsRoutes(app: FastifyInstance) {
     ClassroomController.getClassroomsNamesBySegment,
   )
   app.get('/classrooms/names', ClassroomController.getClassroomsNames)
+  app.delete('/classrooms/:classroomId', ClassroomController.deleteClassroom)
 }
