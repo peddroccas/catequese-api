@@ -68,10 +68,10 @@ model Parent {
 }
 
 model Classroom {
-  id         String   @id @default(uuid())
-  roomNumber Decimal? @unique
+  id         String  @id @default(uuid())
+  roomNumber Decimal @unique
   segment    String
-  startedAt  DateTime @default(now())
+  startedAt  Int
 
   catechists   Catechist[]
   catechizings Catechizing[]
@@ -81,7 +81,7 @@ model Classroom {
 
 model Payment {
   id                String  @id @default(uuid())
-  toBePaid          Float   @default(150)
+  toBePaid          Float   @default(250)
   hasReceivedTicket Boolean @default(false)
 
   catechizing   Catechizing @relation(fields: [catechizingId], references: [id])

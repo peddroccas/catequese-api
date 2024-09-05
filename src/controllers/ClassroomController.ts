@@ -12,17 +12,18 @@ export class ClassroomController {
         roomNumber: z.number(),
         segment: z.string(),
         catechistsId: z.string().uuid().array(),
+        startedAt: z.number().min(2023),
       })
 
-      const { roomNumber, segment, catechistsId } = classroomBodySchema.parse(
-        request.body,
-      )
+      const { roomNumber, segment, catechistsId, startedAt } =
+        classroomBodySchema.parse(request.body)
 
       await prisma.classroom.create({
         data: {
           roomNumber,
           segment,
           catechists: { connect: catechistsId.map((id) => ({ id })) },
+          startedAt,
         },
       })
 
@@ -81,6 +82,7 @@ export class ClassroomController {
         select: {
           id: true,
           roomNumber: true,
+          startedAt: true,
           catechists: {
             select: {
               name: true,
@@ -92,11 +94,13 @@ export class ClassroomController {
       const classroomNames: {
         id: string
         classroomName: string
+        startedAt: number
       }[] = []
       classrooms.forEach((classroom) => {
         classroomNames.push({
           id: classroom.id,
           classroomName: `Turma ${classroom.roomNumber} - ${classroom.catechists.map((catechist) => catechist.name).join(' e ')}`,
+          startedAt: classroom.startedAt,
         })
       })
 
