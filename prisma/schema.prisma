@@ -71,7 +71,7 @@ model Classroom {
   id         String  @id @default(uuid())
   roomNumber Decimal @unique
   segment    String
-  startedAt  Int
+  startedAt  Int     @default(2023)
 
   catechists   Catechist[]
   catechizings Catechizing[]
