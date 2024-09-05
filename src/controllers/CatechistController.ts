@@ -17,7 +17,7 @@ export class CatechistController {
         hasReceivedEucharist: z.boolean(),
         hasReceivedConfirmation: z.boolean(),
         hasReceivedMarriage: z.boolean(),
-        classroomId: z.string().uuid().optional(),
+        classroomId: z.optional(z.string().uuid()),
       })
 
       const {
