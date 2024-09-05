@@ -148,7 +148,7 @@ export class ClassroomController {
       classrooms.forEach((classroom) => {
         classroomNames.push({
           id: classroom.id,
-          classroomName: `Turma ${classroom.roomNumber} - ${classroom.catechists.map((catechist) => catechist.name).join(' e ')}`,
+          classroomName: `Turma ${classroom.roomNumber} - ${classroom.catechists.map((catechist) => catechist.name.split(' ')[0]).join(' e ')}`,
         })
       })
 
