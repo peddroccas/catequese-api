@@ -29,7 +29,7 @@ export class ClassroomController {
 
       reply.status(201).send()
     } catch (error) {
-      reply.status(500).send({ error: 'Erro ao criar nova sala' + error })
+      reply.status(500).send(error)
     }
   }
 
@@ -69,7 +69,7 @@ export class ClassroomController {
 
       reply.status(200).send(classroomResponse)
     } catch (error) {
-      reply.status(500).send({ error: 'Erro ao consultar sala pelo número' })
+      reply.status(500).send(error)
     }
   }
 
@@ -106,7 +106,7 @@ export class ClassroomController {
 
       reply.status(200).send(classroomNames)
     } catch (error) {
-      reply.status(500).send({ error: 'Erro ao consultar nome das salas' })
+      reply.status(500).send(error)
     }
   }
 
@@ -154,7 +154,7 @@ export class ClassroomController {
 
       reply.status(200).send(classroomNames)
     } catch (error) {
-      reply.status(500).send({ error: 'Erro ao consultar nome das salas' })
+      reply.status(500).send(error)
     }
   }
 
