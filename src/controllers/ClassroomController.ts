@@ -11,18 +11,18 @@ export class ClassroomController {
       const classroomBodySchema = z.object({
         roomNumber: z.number(),
         segment: z.string(),
-        catechistsId: z.string().uuid().array(),
+        catechists: z.string().uuid().array(),
         startedAt: z.number().min(2023),
       })
 
-      const { roomNumber, segment, catechistsId, startedAt } =
+      const { roomNumber, segment, catechists, startedAt } =
         classroomBodySchema.parse(request.body)
 
       await prisma.classroom.create({
         data: {
           roomNumber,
           segment,
-          catechists: { connect: catechistsId.map((id) => ({ id })) },
+          catechists: { connect: catechists.map((id) => ({ id })) },
           startedAt,
         },
       })
