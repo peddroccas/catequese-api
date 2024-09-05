@@ -7,5 +7,5 @@ export async function catechistsRoutes(app: FastifyInstance) {
     '/catechists/:catechistId/:classroomId',
     CatechistController.addCatechistToClassroom,
   )
-  app.get('/catechists', CatechistController.getCatechists)
+  app.get('/catechists', CatechistController.getAllCatechists)
 }
