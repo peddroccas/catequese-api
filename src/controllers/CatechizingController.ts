@@ -36,7 +36,7 @@ export class CatechizingController {
         parents,
       } = newCatechizingBodySchema.parse(request.body)
 
-      const { id } = await prisma.catechizing.create({
+      const catechizing = await prisma.catechizing.create({
         data: {
           name,
           address,
@@ -46,20 +46,30 @@ export class CatechizingController {
           hasReceivedMarriage,
           personWithSpecialNeeds,
           classroomId,
+          parents: {
+            create: {
+              name: parents.name,
+              phone: parents.phone,
+              kinship: parents.kinship,
+            },
+          },
+          payments: {
+            create: {
+              toBePaid:
+                (await prisma.classroom
+                  .findFirst({
+                    select: { startedAt: true },
+                    where: { id: classroomId },
+                  })
+                  .then((startedAt) => startedAt?.startedAt)) === 2023
+                  ? 150
+                  : 250,
+            },
+          },
         },
       })
 
-      await prisma.payment.create({ data: { catechizingId: id } })
-      await prisma.parent.create({
-        data: {
-          catechizingId: id,
-          name: parents.name,
-          phone: parents.phone,
-          kinship: parents.kinship,
-        },
-      })
-
-      reply.status(201).send()
+      reply.status(201).send(catechizing)
     } catch (error) {
       reply.status(500).send({ error })
     }
