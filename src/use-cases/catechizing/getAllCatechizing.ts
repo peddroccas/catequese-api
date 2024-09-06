@@ -22,7 +22,6 @@ export async function getAllCatechizing(
       orderBy: { name: 'asc' },
     })
 
-    console.log(catechizings)
     reply.status(201).send(catechizings)
   } catch (error) {
     reply.status(500).send(error)
