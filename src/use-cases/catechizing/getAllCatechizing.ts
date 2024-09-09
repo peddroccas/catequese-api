@@ -16,13 +16,14 @@ export async function getAllCatechizing(
         hasReceivedBaptism: true,
         hasReceivedEucharist: true,
         hasReceivedMarriage: true,
+        personWithSpecialNeeds: true,
         payments: true,
         parents: { select: { name: true, phone: true, kinship: true } },
       },
       orderBy: { name: 'asc' },
     })
 
-    reply.status(201).send(catechizings)
+    reply.status(200).send(catechizings)
   } catch (error) {
     reply.status(500).send(error)
   }
