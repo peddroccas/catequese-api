@@ -2,21 +2,20 @@ import { prisma } from '@/lib/prisma'
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 
-export async function addCatechistToClassroom(
+export async function transferClassCatechis(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
   try {
-    const addCatechistToClassroomsParamsSchema = z.object({
+    const transferClassCatechist = z.object({
+      id: z.string().uuid(),
       classroomId: z.string().uuid(),
-      catechistId: z.string().uuid(),
     })
 
-    const { classroomId, catechistId } =
-      addCatechistToClassroomsParamsSchema.parse(request.params)
+    const { classroomId, id } = transferClassCatechist.parse(request.params)
 
     await prisma.catechist.update({
-      where: { id: catechistId },
+      where: { id },
       data: { classroomId },
     })
 

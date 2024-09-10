@@ -1,11 +1,11 @@
 import { createNewCatechist } from '@/use-cases/catechist/createNewCatechist'
-import { addCatechistToClassroom } from '@/use-cases/catechist/addCatechistToClassroom'
+import { transferClassCatechis } from '@/use-cases/catechist/transferClassCatechist'
 import { getAllCatechists } from '@/use-cases/catechist/getAllCatechist'
 import { updateCatechist } from '@/use-cases/catechist/updateCatechist'
 
 export const CatechistController = {
   createNewCatechist,
-  addCatechistToClassroom,
+  transferClassCatechis,
   getAllCatechists,
   updateCatechist,
 }

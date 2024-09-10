@@ -3,10 +3,7 @@ import { CatechistController } from '../controllers/CatechistController'
 
 export async function catechistsRoutes(app: FastifyInstance) {
   app.post('/catechists', CatechistController.createNewCatechist)
-  app.put(
-    '/catechists/:catechistId/:classroomId',
-    CatechistController.addCatechistToClassroom,
-  )
+  app.patch('/catechists/transfer', CatechistController.transferClassCatechis)
   app.get('/catechists', CatechistController.getAllCatechists)
   app.put('/catechists/:catechistId', CatechistController.updateCatechist)
 }
