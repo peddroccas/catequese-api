@@ -27,6 +27,7 @@ export async function getClassroomById(
             hasReceivedBaptism: true,
             hasReceivedEucharist: true,
             hasReceivedMarriage: true,
+            personWithSpecialNeeds: true,
             payments: true,
             parents: { select: { name: true, phone: true, kinship: true } },
           },

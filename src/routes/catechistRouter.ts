@@ -8,4 +8,5 @@ export async function catechistsRoutes(app: FastifyInstance) {
     CatechistController.addCatechistToClassroom,
   )
   app.get('/catechists', CatechistController.getAllCatechists)
+  app.put('/catechists/:catechistId', CatechistController.updateCatechist)
 }
