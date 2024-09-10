@@ -17,6 +17,7 @@ export async function getClassroomById(
       where: { id: classroomId },
       select: {
         catechizings: {
+          orderBy: { name: 'asc' },
           select: {
             id: true,
             name: true,
