@@ -1,26 +1,18 @@
 import { prisma } from '@/lib/prisma'
-import { FastifyRequest, FastifyReply } from 'fastify'
-import { z } from 'zod'
 
-export async function transferClassCatechist(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
-  try {
-    const transferClassCatechist = z.object({
-      id: z.string().uuid(),
-      classroomId: z.string().uuid(),
-    })
+interface TransferClassCatechistRequest {
+  id: string
+  classroomId: string
+}
 
-    const { classroomId, id } = transferClassCatechist.parse(request.params)
+export async function transferClassCatechist({
+  id,
+  classroomId,
+}: TransferClassCatechistRequest) {
+  const catechist = await prisma.catechist.update({
+    where: { id },
+    data: { classroomId },
+  })
 
-    await prisma.catechist.update({
-      where: { id },
-      data: { classroomId },
-    })
-
-    reply.status(200).send()
-  } catch (error) {
-    reply.status(500).send(error)
-  }
+  return { catechist }
 }

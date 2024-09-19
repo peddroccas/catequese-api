@@ -5,7 +5,9 @@ interface DeleteCatechistRequest {
 }
 
 export async function deleteCatechist({ catechistId }: DeleteCatechistRequest) {
-  await prisma.catechist.delete({
+  const deletedCatechist = await prisma.catechist.delete({
     where: { id: catechistId },
   })
+
+  return { deletedCatechist }
 }

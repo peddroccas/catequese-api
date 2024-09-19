@@ -1,24 +1,13 @@
 import { prisma } from '@/lib/prisma'
-import { FastifyRequest, FastifyReply } from 'fastify'
-import { z } from 'zod'
 
-export async function deleteClassroom(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
-  try {
-    const deleteBodySchema = z.object({
-      classroomId: z.string().uuid(),
-    })
+interface DeleteClassroomRequest {
+  classroomId: string
+}
 
-    const { classroomId } = deleteBodySchema.parse(request.params)
+export async function deleteClassroom({ classroomId }: DeleteClassroomRequest) {
+  const classroom = await prisma.classroom.delete({
+    where: { id: classroomId },
+  })
 
-    await prisma.classroom.delete({
-      where: { id: classroomId },
-    })
-
-    reply.status(200).send({ message: 'Turma deletada com sucesso' })
-  } catch (error) {
-    reply.status(500).send(error)
-  }
+  return { classroom }
 }

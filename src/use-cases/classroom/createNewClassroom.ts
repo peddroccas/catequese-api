@@ -1,33 +1,26 @@
 import { prisma } from '@/lib/prisma'
-import { FastifyRequest, FastifyReply } from 'fastify'
-import { z } from 'zod'
 
-export async function createNewClassroom(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
-  try {
-    const classroomBodySchema = z.object({
-      roomNumber: z.number(),
-      segment: z.string(),
-      catechists: z.string().uuid().array(),
-      startedAt: z.number().min(2023),
-    })
+interface CreateNewClassroomRequest {
+  roomNumber: number
+  segment: string
+  catechists: string[]
+  startedAt: number
+}
 
-    const { roomNumber, segment, catechists, startedAt } =
-      classroomBodySchema.parse(request.body)
+export async function createNewClassroom({
+  roomNumber,
+  segment,
+  catechists,
+  startedAt,
+}: CreateNewClassroomRequest) {
+  const classroom = await prisma.classroom.create({
+    data: {
+      roomNumber,
+      segment,
+      catechists: { connect: catechists.map((id) => ({ id })) },
+      startedAt,
+    },
+  })
 
-    await prisma.classroom.create({
-      data: {
-        roomNumber,
-        segment,
-        catechists: { connect: catechists.map((id) => ({ id })) },
-        startedAt,
-      },
-    })
-
-    reply.status(201).send()
-  } catch (error) {
-    reply.status(500).send(error)
-  }
+  return { classroom }
 }

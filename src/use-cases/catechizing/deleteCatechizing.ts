@@ -1,24 +1,15 @@
 import { prisma } from '@/lib/prisma'
-import { FastifyRequest, FastifyReply } from 'fastify'
-import { z } from 'zod'
 
-export async function deleteCatechizing(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
-  try {
-    const deleteBodySchema = z.object({
-      catechizingId: z.string().uuid(),
-    })
+interface DeleteCatechizingRequest {
+  catechizingId: string
+}
 
-    const { catechizingId } = deleteBodySchema.parse(request.params)
+export async function deleteCatechizing({
+  catechizingId,
+}: DeleteCatechizingRequest) {
+  const catechizing = await prisma.catechizing.delete({
+    where: { id: catechizingId },
+  })
 
-    await prisma.catechizing.delete({
-      where: { id: catechizingId },
-    })
-
-    reply.status(200).send({ message: 'Catequizando deletado com sucesso' })
-  } catch (error) {
-    reply.status(500).send(error)
-  }
+  return { catechizing }
 }
