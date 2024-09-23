@@ -5,6 +5,7 @@ import { getClassroomsNamesBySegment } from '@/use-cases/classroom/getClassroomN
 import { deleteClassroom } from '@/use-cases/classroom/deleteClassroom'
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
+import { editClassroom } from '@/use-cases/classroom/editClassroom'
 
 export class ClassroomController {
   static async createNewClassroom(
@@ -33,6 +34,40 @@ export class ClassroomController {
         roomNumber,
         segment,
         catechists,
+        startedAt,
+      })
+
+      reply.status(201).send(classroom)
+    } catch (error) {
+      reply.status(500).send(error)
+    }
+  }
+
+  static async editClassroom(request: FastifyRequest, reply: FastifyReply) {
+    try {
+      const classroomBodySchema = z.object({
+        id: z.string().uuid(),
+        roomNumber: z.coerce.number(),
+        segment: z.enum([
+          '1° Eucaristia',
+          'Crisma',
+          'Catequizandos Adultos',
+          'Catecúmenos Adultos',
+          'Sementinha',
+          'Pré-Eucaristia',
+        ]),
+        catechists: z.object({ id: z.string().uuid() }).array(),
+        startedAt: z.number().min(2023),
+      })
+
+      const { id, roomNumber, segment, catechists, startedAt } =
+        classroomBodySchema.parse(request.body)
+
+      const { classroom } = await editClassroom({
+        id,
+        roomNumber,
+        segment,
+        catechists: catechists.map((catechist) => catechist.id),
         startedAt,
       })
 

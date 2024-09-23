@@ -3,6 +3,7 @@ import { ClassroomController } from '../controllers/ClassroomController'
 
 export async function classroomsRoutes(app: FastifyInstance) {
   app.post('/classrooms', ClassroomController.createNewClassroom)
+  app.put('/classrooms', ClassroomController.editClassroom)
   app.get('/classrooms/:classroomId', ClassroomController.getClassroomById)
   app.get(
     '/classrooms/names/:segment',
