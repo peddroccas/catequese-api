@@ -48,7 +48,7 @@ model Catechizing {
   payments Payment[]
   parents  Parent[]
 
-  classroom   Classroom? @relation(fields: [classroomId], references: [id])
+  classroom   Classroom? @relation(fields: [classroomId], references: [id], onDelete: Cascade)
   classroomId String?
 
   @@map("catechizings")
