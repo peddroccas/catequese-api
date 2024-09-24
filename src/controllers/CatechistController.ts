@@ -5,8 +5,51 @@ import { updateCatechist } from '@/use-cases/catechist/updateCatechist'
 import { deleteCatechist } from '@/use-cases/catechist/deleteCatechist'
 import { z } from 'zod'
 import { FastifyRequest, FastifyReply } from 'fastify'
+import { signUp } from '@/use-cases/catechist/signUp'
+import { hasSetPassword } from '@/use-cases/catechist/hasSetPassword'
+import { signIn } from '@/use-cases/catechist/signIn'
+import { getCatechist } from '@/use-cases/catechist/getCatechist'
 
 export class CatechistController {
+  static async signIn(request: FastifyRequest, reply: FastifyReply) {
+    try {
+      const signInBodySchema = z.object({
+        email: z.string().email(),
+        password: z.string().min(6),
+      })
+
+      const { email, password } = signInBodySchema.parse(request.body)
+
+      const { loggedCatechist } = await signIn({ email, password })
+
+      reply.status(201).send(loggedCatechist)
+    } catch (error) {
+      reply.status(500).send(error)
+    }
+  }
+
+  static async signUp(request: FastifyRequest, reply: FastifyReply) {
+    try {
+      const newLoginBodySchema = z.object({
+        email: z.string().email(),
+        password: z.string().min(6),
+      })
+
+      const { email, password } = newLoginBodySchema.parse(request.body)
+
+      const { hasSetPassowrd } = await hasSetPassword({ email })
+
+      if (hasSetPassowrd) {
+        throw new Error('Catequista já cadastrou senha')
+      }
+      const { message } = await signUp({ email, password })
+
+      reply.status(201).send({ message })
+    } catch (error) {
+      reply.status(500).send({ message: error })
+    }
+  }
+
   static async createNewCatechist(
     request: FastifyRequest,
     reply: FastifyReply,
@@ -83,6 +126,22 @@ export class CatechistController {
     try {
       const { catechists } = await getAllCatechists()
       reply.status(200).send(catechists)
+    } catch (error) {
+      reply
+        .status(500)
+        .send({ message: 'Erro ao consultar catequistas', error })
+    }
+  }
+
+  static async getCatechist(request: FastifyRequest, reply: FastifyReply) {
+    try {
+      const updateCatechistParamsSchema = z.object({
+        id: z.string().uuid(),
+      })
+      const { id } = updateCatechistParamsSchema.parse(request.params)
+
+      const { catechist } = await getCatechist({ id })
+      reply.status(200).send(catechist)
     } catch (error) {
       reply
         .status(500)

@@ -13,9 +13,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  COORDINATOR
+  MEMBER
+}
+
 model Catechist {
   id       String   @id @default(uuid())
   name     String
+  role     Role     @default(MEMBER)
   birthday DateTime
   phone    String
   address  String
