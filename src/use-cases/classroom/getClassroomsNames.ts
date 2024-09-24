@@ -17,14 +17,16 @@ export async function getClassroomsNames() {
 
   const classroomNames: {
     id: string
-    classroomName: string
+    name: string
+    roomNumber: number
     startedAt: number
   }[] = []
   classrooms.forEach((classroom) => {
     classroomNames.push({
       id: classroom.id,
-      classroomName: `Turma ${classroom.roomNumber} - ${classroom.catechists.map((catechist) => catechist.name.split(' ')[0]).join(' e ')}`,
+      name: `Turma ${classroom.roomNumber} - ${classroom.catechists.map((catechist) => catechist.name.split(' ')[0]).join(' e ')}`,
       startedAt: classroom.startedAt,
+      roomNumber: Number(classroom.roomNumber),
     })
   })
 
