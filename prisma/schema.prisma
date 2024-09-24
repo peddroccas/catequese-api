@@ -60,7 +60,7 @@ model Parent {
   phone   String
   kinship String
 
-  catechizing   Catechizing @relation(fields: [catechizingId], references: [id])
+  catechizing   Catechizing @relation(fields: [catechizingId], references: [id], onDelete: Cascade)
   catechizingId String
 
   @@map("parents")
@@ -83,7 +83,7 @@ model Payment {
   toBePaid          Float   @default(250)
   hasReceivedTicket Boolean @default(false)
 
-  catechizing   Catechizing @relation(fields: [catechizingId], references: [id])
+  catechizing   Catechizing @relation(fields: [catechizingId], references: [id], onDelete: Cascade)
   catechizingId String      @unique
 
   installments Installment[]
@@ -96,7 +96,7 @@ model Installment {
   payedAt DateTime @default(now())
   value   Float
 
-  payment   Payment @relation(fields: [paymentId], references: [id])
+  payment   Payment @relation(fields: [paymentId], references: [id], onDelete: Cascade)
   paymentId String
 
   @@map("installments")
