@@ -20,6 +20,9 @@ export async function getClassroomsNames() {
     name: string
     roomNumber: number
     startedAt: number
+    catechists: {
+      name: string
+    }[]
   }[] = []
   classrooms.forEach((classroom) => {
     classroomNames.push({
@@ -27,6 +30,7 @@ export async function getClassroomsNames() {
       name: `Turma ${classroom.roomNumber} - ${classroom.catechists.map((catechist) => catechist.name.split(' ')[0]).join(' e ')}`,
       startedAt: classroom.startedAt,
       roomNumber: Number(classroom.roomNumber),
+      catechists: classroom.catechists,
     })
   })
 
