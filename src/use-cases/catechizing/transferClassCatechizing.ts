@@ -2,17 +2,17 @@ import { prisma } from '@/lib/prisma'
 
 interface TransferClassCatechizingRequest {
   id: string
-  newClassroomId: string
+  classroomId: string
 }
 
 export async function transferClassCatechizing({
   id,
-  newClassroomId,
+  classroomId,
 }: TransferClassCatechizingRequest) {
   const catechizing = await prisma.catechizing.update({
     where: { id },
     data: {
-      classroomId: newClassroomId,
+      classroomId,
     },
   })
 

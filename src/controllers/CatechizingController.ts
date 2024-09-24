@@ -157,16 +157,16 @@ export class CatechizingController {
     try {
       const transferClassCatechizingBodySchema = z.object({
         id: z.string().uuid(),
-        newClassroomId: z.string().uuid(),
+        classroomId: z.string().uuid(),
       })
 
-      const { id, newClassroomId } = transferClassCatechizingBodySchema.parse(
+      const { id, classroomId } = transferClassCatechizingBodySchema.parse(
         request.body,
       )
 
       const { catechizing } = await transferClassCatechizing({
         id,
-        newClassroomId,
+        classroomId,
       })
       reply.status(201).send({
         message: 'Catequizando transferido de sala com sucesso',
