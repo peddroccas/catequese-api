@@ -20,7 +20,10 @@ export class CatechistController {
 
       const { email, password } = loginBodySchema.parse(request.body)
 
-      const { loggedCatechist } = await login({ email, password })
+      const { loggedCatechist } = await login({
+        email: email.toLowerCase(),
+        password,
+      })
 
       reply.status(201).send(loggedCatechist)
     } catch (error) {
@@ -37,7 +40,9 @@ export class CatechistController {
 
       const { email, password } = newLoginBodySchema.parse(request.body)
 
-      const { hasSetPassowrd } = await hasSetPassword({ email })
+      const { hasSetPassowrd } = await hasSetPassword({
+        email: email.toLowerCase(),
+      })
 
       if (hasSetPassowrd) {
         throw new Error('Catequista já cadastrou senha')
