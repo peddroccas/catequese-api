@@ -7,20 +7,20 @@ import { z } from 'zod'
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { signUp } from '@/use-cases/catechist/signUp'
 import { hasSetPassword } from '@/use-cases/catechist/hasSetPassword'
-import { signIn } from '@/use-cases/catechist/signIn'
+import { login } from '@/use-cases/catechist/login'
 import { getCatechist } from '@/use-cases/catechist/getCatechist'
 
 export class CatechistController {
-  static async signIn(request: FastifyRequest, reply: FastifyReply) {
+  static async login(request: FastifyRequest, reply: FastifyReply) {
     try {
-      const signInBodySchema = z.object({
+      const loginBodySchema = z.object({
         email: z.string().email(),
         password: z.string().min(6),
       })
 
-      const { email, password } = signInBodySchema.parse(request.body)
+      const { email, password } = loginBodySchema.parse(request.body)
 
-      const { loggedCatechist } = await signIn({ email, password })
+      const { loggedCatechist } = await login({ email, password })
 
       reply.status(201).send(loggedCatechist)
     } catch (error) {
@@ -86,7 +86,7 @@ export class CatechistController {
         birthday,
         phone,
         address,
-        email,
+        email: email.toLowerCase(),
         hasReceivedBaptism,
         hasReceivedConfirmation,
         hasReceivedEucharist,

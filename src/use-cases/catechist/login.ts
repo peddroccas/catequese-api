@@ -3,12 +3,12 @@ import { compare } from 'bcryptjs'
 import { InvalidCredentialsError } from '../errors/invalid-credentials-error'
 import { CatechistNotFoundError } from '../errors/catechist-not-found'
 
-interface SignInRequest {
+interface loginRequest {
   email: string
   password: string
 }
 
-export async function signIn({ email, password }: SignInRequest) {
+export async function login({ email, password }: loginRequest) {
   // Busca o catequista pelo email
   const catechist = await prisma.catechist.findUnique({
     where: { email },
