@@ -26,9 +26,9 @@ export class PaymentController {
         value,
       })
 
-      reply.status(201).send('Parcela criada')
+      return reply.status(201).send('Parcela criada')
     } catch (error) {
-      reply.status(500).send({ error: 'Erro ao cadastrar nova parcela' })
+      return reply.status(500).send({ error: 'Erro ao cadastrar nova parcela' })
     }
   }
 
@@ -45,9 +45,9 @@ export class PaymentController {
 
       const { payment } = await getPaymentByCatechizing({ catechizingId })
 
-      reply.status(200).send(payment)
+      return reply.status(200).send(payment)
     } catch (error) {
-      reply.status(500).send({ error: 'Erro ao consultar parcelas' })
+      return reply.status(500).send({ error: 'Erro ao consultar parcelas' })
     }
   }
 }

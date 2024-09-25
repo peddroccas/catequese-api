@@ -1,7 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import { compare } from 'bcryptjs'
 import { InvalidCredentialsError } from '../errors/invalid-credentials-error'
-import { CatechistNotFoundError } from '../errors/catechist-not-found'
 
 interface loginRequest {
   email: string
@@ -16,14 +15,14 @@ export async function login({ email, password }: loginRequest) {
 
   // Verifica se o catequista foi encontrado
   if (!catechist) {
-    throw new CatechistNotFoundError()
+    throw new InvalidCredentialsError()
   }
 
   // Compara a senha informada com o hash armazenado
-  const isPasswordValid = await compare(password, catechist.password_hash!)
+  const doesPasswordMatches = await compare(password, catechist.password_hash!)
 
   // Se a senha for inválida, lança um erro
-  if (!isPasswordValid) {
+  if (!doesPasswordMatches) {
     throw new InvalidCredentialsError()
   }
 

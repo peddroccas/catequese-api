@@ -37,9 +37,9 @@ export class ClassroomController {
         startedAt,
       })
 
-      reply.status(201).send(classroom)
+      return reply.status(201).send(classroom)
     } catch (error) {
-      reply.status(500).send(error)
+      return reply.status(500).send(error)
     }
   }
 
@@ -71,9 +71,9 @@ export class ClassroomController {
         startedAt,
       })
 
-      reply.status(201).send(classroom)
+      return reply.status(201).send(classroom)
     } catch (error) {
-      reply.status(500).send(error)
+      return reply.status(500).send(error)
     }
   }
 
@@ -87,9 +87,9 @@ export class ClassroomController {
 
       const { classroom } = await getClassroomById({ classroomId })
 
-      reply.status(200).send(classroom)
+      return reply.status(200).send(classroom)
     } catch (error) {
-      reply.status(500).send(error)
+      return reply.status(500).send(error)
     }
   }
 
@@ -99,9 +99,9 @@ export class ClassroomController {
   ) {
     try {
       const { classroomNames } = await getClassroomsNames()
-      reply.status(200).send(classroomNames)
+      return reply.status(200).send(classroomNames)
     } catch (error) {
-      reply.status(500).send(error)
+      return reply.status(500).send(error)
     }
   }
 
@@ -125,9 +125,9 @@ export class ClassroomController {
 
       const { classroomNames } = await getClassroomsNamesBySegment({ segment })
 
-      reply.status(200).send(classroomNames)
+      return reply.status(200).send(classroomNames)
     } catch (error) {
-      reply.status(500).send(error)
+      return reply.status(500).send(error)
     }
   }
 
@@ -140,12 +140,12 @@ export class ClassroomController {
 
       const { classroom } = await deleteClassroom({ classroomId })
 
-      reply.status(200).send({
+      return reply.status(200).send({
         message: 'Turma deletada com sucesso',
         classroom,
       })
     } catch (error) {
-      reply.status(500).send(error)
+      return reply.status(500).send(error)
     }
   }
 }

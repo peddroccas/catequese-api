@@ -53,9 +53,9 @@ export class CatechizingController {
         personWithSpecialNeeds,
       })
 
-      reply.status(201).send(catechizing)
+      return reply.status(201).send(catechizing)
     } catch (error) {
-      reply.status(500).send({ error })
+      return reply.status(500).send({ error })
     }
   }
 
@@ -73,18 +73,18 @@ export class CatechizingController {
       )
       const { catechizings } = await getCatechizingByClassroom({ classroomId })
 
-      reply.status(201).send(catechizings)
+      return reply.status(201).send(catechizings)
     } catch (error) {
-      reply.status(500).send(error)
+      return reply.status(500).send(error)
     }
   }
 
   static async getAllCatechizing(request: FastifyRequest, reply: FastifyReply) {
     try {
       const { catechizings } = await getAllCatechizing()
-      reply.status(200).send(catechizings)
+      return reply.status(200).send(catechizings)
     } catch (error) {
-      reply.status(500).send(error)
+      return reply.status(500).send(error)
     }
   }
 
@@ -123,12 +123,12 @@ export class CatechizingController {
         hasReceivedMarriage,
       })
 
-      reply.status(201).send({
+      return reply.status(201).send({
         message: 'Catequizando atualizado',
         catechizing,
       })
     } catch (error) {
-      reply.status(500).send({ error })
+      return reply.status(500).send({ error })
     }
   }
 
@@ -146,7 +146,7 @@ export class CatechizingController {
         .status(200)
         .send({ message: 'Catequizando deletado com sucesso', catechizing })
     } catch (error) {
-      reply.status(500).send(error)
+      return reply.status(500).send(error)
     }
   }
 
@@ -168,12 +168,12 @@ export class CatechizingController {
         id,
         classroomId,
       })
-      reply.status(201).send({
+      return reply.status(201).send({
         message: 'Catequizando transferido de sala com sucesso',
         catechizing,
       })
     } catch (error) {
-      reply.status(500).send({ error })
+      return reply.status(500).send({ error })
     }
   }
 }

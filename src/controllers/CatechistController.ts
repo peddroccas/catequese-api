@@ -25,9 +25,9 @@ export class CatechistController {
         password,
       })
 
-      reply.status(201).send(loggedCatechist)
+      return reply.status(201).send(loggedCatechist)
     } catch (error) {
-      reply.status(500).send(error)
+      return reply.status(500).send(error)
     }
   }
 
@@ -49,9 +49,9 @@ export class CatechistController {
       }
       const { message } = await signUp({ email, password })
 
-      reply.status(201).send({ message })
+      return reply.status(201).send({ message })
     } catch (error) {
-      reply.status(500).send({ message: error })
+      return reply.status(500).send({ message: error })
     }
   }
 
@@ -101,7 +101,7 @@ export class CatechistController {
 
       return reply.status(201).send(newCatechist)
     } catch (error) {
-      reply.status(500).send(error)
+      return reply.status(500).send(error)
     }
   }
 
@@ -121,16 +121,16 @@ export class CatechistController {
 
       const { catechist } = await transferClassCatechist({ id, classroomId })
 
-      reply.status(200).send(catechist)
+      return reply.status(200).send(catechist)
     } catch (error) {
-      reply.status(500).send(error)
+      return reply.status(500).send(error)
     }
   }
 
   static async getAllCatechists(request: FastifyRequest, reply: FastifyReply) {
     try {
       const { catechists } = await getAllCatechists()
-      reply.status(200).send(catechists)
+      return reply.status(200).send(catechists)
     } catch (error) {
       reply
         .status(500)
@@ -146,7 +146,7 @@ export class CatechistController {
       const { id } = updateCatechistParamsSchema.parse(request.params)
 
       const { catechist } = await getCatechist({ id })
-      reply.status(200).send(catechist)
+      return reply.status(200).send(catechist)
     } catch (error) {
       reply
         .status(500)
@@ -194,9 +194,9 @@ export class CatechistController {
         hasReceivedMarriage,
       })
 
-      reply.status(201).send(catechist)
+      return reply.status(201).send(catechist)
     } catch (error) {
-      reply.status(500).send({ error })
+      return reply.status(500).send({ error })
     }
   }
 
@@ -212,7 +212,7 @@ export class CatechistController {
 
       return reply.status(201).send(deletedCatechist)
     } catch (error) {
-      reply.status(500).send(error)
+      return reply.status(500).send(error)
     }
   }
 }
