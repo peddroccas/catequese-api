@@ -10,7 +10,7 @@ import { hasSetPassword } from '@/use-cases/catechist/hasSetPassword'
 import { login } from '@/use-cases/catechist/login'
 import { getCatechist } from '@/use-cases/catechist/getCatechist'
 
-export class CatechistController {
+export class catechist {
   static async login(request: FastifyRequest, reply: FastifyReply) {
     try {
       const loginBodySchema = z.object({
@@ -20,12 +20,23 @@ export class CatechistController {
 
       const { email, password } = loginBodySchema.parse(request.body)
 
-      const { loggedCatechist } = await login({
+      const { catechist } = await login({
         email: email.toLowerCase(),
         password,
       })
 
-      return reply.status(201).send(loggedCatechist)
+      const token = await reply.jwtSign(
+        {},
+        {
+          sign: {
+            sub: catechist.id,
+          },
+        },
+      )
+
+      return reply.status(201).send({
+        token,
+      })
     } catch (error) {
       return reply.status(500).send(error)
     }
@@ -55,10 +66,7 @@ export class CatechistController {
     }
   }
 
-  static async createNewCatechist(
-    request: FastifyRequest,
-    reply: FastifyReply,
-  ) {
+  static async createNew(request: FastifyRequest, reply: FastifyReply) {
     try {
       const newCatechistBodySchema = z.object({
         name: z.string(),
@@ -105,10 +113,7 @@ export class CatechistController {
     }
   }
 
-  static async transferClassCatechist(
-    request: FastifyRequest,
-    reply: FastifyReply,
-  ) {
+  static async transferClass(request: FastifyRequest, reply: FastifyReply) {
     try {
       const transferClassCatechistBodySchema = z.object({
         id: z.string().uuid(),
@@ -127,7 +132,7 @@ export class CatechistController {
     }
   }
 
-  static async getAllCatechists(request: FastifyRequest, reply: FastifyReply) {
+  static async getAll(request: FastifyRequest, reply: FastifyReply) {
     try {
       const { catechists } = await getAllCatechists()
       return reply.status(200).send(catechists)
@@ -138,12 +143,10 @@ export class CatechistController {
     }
   }
 
-  static async getCatechist(request: FastifyRequest, reply: FastifyReply) {
+  static async profile(request: FastifyRequest, reply: FastifyReply) {
     try {
-      const updateCatechistParamsSchema = z.object({
-        id: z.string().uuid(),
-      })
-      const { id } = updateCatechistParamsSchema.parse(request.params)
+      await request.jwtVerify()
+      const id = request.user.sub
 
       const { catechist } = await getCatechist({ id })
       return reply.status(200).send(catechist)
@@ -154,7 +157,7 @@ export class CatechistController {
     }
   }
 
-  static async updateCatechist(request: FastifyRequest, reply: FastifyReply) {
+  static async update(request: FastifyRequest, reply: FastifyReply) {
     try {
       const updateCatechistParamsSchema = z.object({
         catechistId: z.string().uuid(),
@@ -200,7 +203,7 @@ export class CatechistController {
     }
   }
 
-  static async deleteCatechist(request: FastifyRequest, reply: FastifyReply) {
+  static async delete(request: FastifyRequest, reply: FastifyReply) {
     try {
       const deleteCatechistParamsSchema = z.object({
         catechistId: z.string().uuid(),

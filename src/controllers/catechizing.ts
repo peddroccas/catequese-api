@@ -7,11 +7,8 @@ import { transferClassCatechizing } from '@/use-cases/catechizing/transferClassC
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 
-export class CatechizingController {
-  static async createNewCatechizing(
-    request: FastifyRequest,
-    reply: FastifyReply,
-  ) {
+export class catechizing {
+  static async createNew(request: FastifyRequest, reply: FastifyReply) {
     try {
       const newCatechizingBodySchema = z.object({
         name: z.string(),
@@ -59,10 +56,7 @@ export class CatechizingController {
     }
   }
 
-  static async getCatechizingByClassroom(
-    request: FastifyRequest,
-    reply: FastifyReply,
-  ) {
+  static async getByClassroom(request: FastifyRequest, reply: FastifyReply) {
     try {
       const catechizingsPerClassroomParamsSchema = z.object({
         classroomId: z.string().uuid(),
@@ -79,7 +73,7 @@ export class CatechizingController {
     }
   }
 
-  static async getAllCatechizing(request: FastifyRequest, reply: FastifyReply) {
+  static async getAll(request: FastifyRequest, reply: FastifyReply) {
     try {
       const { catechizings } = await getAllCatechizing()
       return reply.status(200).send(catechizings)
@@ -88,7 +82,7 @@ export class CatechizingController {
     }
   }
 
-  static async updateCatechizing(request: FastifyRequest, reply: FastifyReply) {
+  static async update(request: FastifyRequest, reply: FastifyReply) {
     try {
       const updateCatechizingBodySchema = z.object({
         id: z.string().uuid(),
@@ -132,7 +126,7 @@ export class CatechizingController {
     }
   }
 
-  static async deleteCatechizing(request: FastifyRequest, reply: FastifyReply) {
+  static async delete(request: FastifyRequest, reply: FastifyReply) {
     try {
       const deleteBodySchema = z.object({
         catechizingId: z.string().uuid(),
@@ -150,10 +144,7 @@ export class CatechizingController {
     }
   }
 
-  static async transferClassCatechizing(
-    request: FastifyRequest,
-    reply: FastifyReply,
-  ) {
+  static async transferClass(request: FastifyRequest, reply: FastifyReply) {
     try {
       const transferClassCatechizingBodySchema = z.object({
         id: z.string().uuid(),

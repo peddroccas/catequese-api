@@ -3,7 +3,7 @@ import { getPaymentByCatechizing } from '@/use-cases/payment/getPaymentByCatechi
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 
-export class PaymentController {
+export class payment {
   static async createNewInstallment(
     request: FastifyRequest,
     reply: FastifyReply,
@@ -32,10 +32,7 @@ export class PaymentController {
     }
   }
 
-  static async getPaymentByCatechizing(
-    request: FastifyRequest,
-    reply: FastifyReply,
-  ) {
+  static async getByCatechizing(request: FastifyRequest, reply: FastifyReply) {
     try {
       const getPaymentParamsSchema = z.object({
         catechizingId: z.string(),

@@ -1,20 +1,11 @@
 import { FastifyInstance } from 'fastify'
-import { CatechizingController } from '../controllers/CatechizingController'
+import { catechizing } from '../controllers/catechizing'
 
 export async function catechizingRoutes(app: FastifyInstance) {
-  app.post('/catechizings/new', CatechizingController.createNewCatechizing)
-  app.get(
-    '/catechizings/:classroomId',
-    CatechizingController.getCatechizingByClassroom,
-  )
-  app.get('/catechizings', CatechizingController.getAllCatechizing)
-  app.put('/catechizings', CatechizingController.updateCatechizing)
-  app.patch(
-    '/catechizings/transfer',
-    CatechizingController.transferClassCatechizing,
-  )
-  app.delete(
-    '/catechizings/:catechizingId',
-    CatechizingController.deleteCatechizing,
-  )
+  app.post('/catechizings/new', catechizing.createNew)
+  app.get('/catechizings/:classroomId', catechizing.getByClassroom)
+  app.get('/catechizings', catechizing.getAll)
+  app.put('/catechizings', catechizing.update)
+  app.patch('/catechizings/transfer', catechizing.transferClass)
+  app.delete('/catechizings/:catechizingId', catechizing.delete)
 }

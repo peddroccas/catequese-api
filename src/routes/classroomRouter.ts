@@ -1,14 +1,11 @@
 import { FastifyInstance } from 'fastify'
-import { ClassroomController } from '../controllers/ClassroomController'
+import { classroom } from '../controllers/classroom'
 
 export async function classroomsRoutes(app: FastifyInstance) {
-  app.post('/classrooms', ClassroomController.createNewClassroom)
-  app.put('/classrooms', ClassroomController.editClassroom)
-  app.get('/classrooms/:classroomId', ClassroomController.getClassroomById)
-  app.get(
-    '/classrooms/names/:segment',
-    ClassroomController.getClassroomsNamesBySegment,
-  )
-  app.get('/classrooms/names', ClassroomController.getClassroomsNames)
-  app.delete('/classrooms/:classroomId', ClassroomController.deleteClassroom)
+  app.post('/classrooms', classroom.createNew)
+  app.put('/classrooms', classroom.update)
+  app.get('/classrooms/:classroomId', classroom.getById)
+  app.get('/classrooms/names/:segment', classroom.getNamesBySegment)
+  app.get('/classrooms/names', classroom.getNames)
+  app.delete('/classrooms/:classroomId', classroom.delete)
 }

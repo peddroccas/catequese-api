@@ -7,11 +7,8 @@ import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { editClassroom } from '@/use-cases/classroom/editClassroom'
 
-export class ClassroomController {
-  static async createNewClassroom(
-    request: FastifyRequest,
-    reply: FastifyReply,
-  ) {
+export class classroom {
+  static async createNew(request: FastifyRequest, reply: FastifyReply) {
     try {
       const classroomBodySchema = z.object({
         roomNumber: z.number(),
@@ -43,7 +40,7 @@ export class ClassroomController {
     }
   }
 
-  static async editClassroom(request: FastifyRequest, reply: FastifyReply) {
+  static async update(request: FastifyRequest, reply: FastifyReply) {
     try {
       const classroomBodySchema = z.object({
         id: z.string().uuid(),
@@ -77,7 +74,7 @@ export class ClassroomController {
     }
   }
 
-  static async getClassroomById(request: FastifyRequest, reply: FastifyReply) {
+  static async getById(request: FastifyRequest, reply: FastifyReply) {
     try {
       const classroomBodySchema = z.object({
         classroomId: z.string().uuid(),
@@ -93,10 +90,7 @@ export class ClassroomController {
     }
   }
 
-  static async getClassroomsNames(
-    request: FastifyRequest,
-    reply: FastifyReply,
-  ) {
+  static async getNames(request: FastifyRequest, reply: FastifyReply) {
     try {
       const { classroomNames } = await getClassroomsNames()
       return reply.status(200).send(classroomNames)
@@ -105,10 +99,7 @@ export class ClassroomController {
     }
   }
 
-  static async getClassroomsNamesBySegment(
-    request: FastifyRequest,
-    reply: FastifyReply,
-  ) {
+  static async getNamesBySegment(request: FastifyRequest, reply: FastifyReply) {
     try {
       const classroomBodySchema = z.object({
         segment: z.enum([
@@ -131,7 +122,7 @@ export class ClassroomController {
     }
   }
 
-  static async deleteClassroom(request: FastifyRequest, reply: FastifyReply) {
+  static async delete(request: FastifyRequest, reply: FastifyReply) {
     try {
       const deleteBodySchema = z.object({
         classroomId: z.string().uuid(),

@@ -26,7 +26,5 @@ export async function login({ email, password }: loginRequest) {
     throw new InvalidCredentialsError()
   }
 
-  const { password_hash, ...loggedCatechist } = catechist
-  // Retorna o catequista logado
-  return { loggedCatechist }
+  return { catechist }
 }
