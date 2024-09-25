@@ -40,7 +40,6 @@ export async function createNewCatechist({
       hasReceivedEucharist,
       hasReceivedMarriage,
       classroomId,
-      role: 'COORDINATOR',
     },
   })
 
