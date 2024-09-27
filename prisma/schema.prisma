@@ -32,7 +32,7 @@ model Catechist {
   hasReceivedMarriage     Boolean?
 
   email         String? @unique
-  password_hash String?
+  password_hash String? @default("$2a$06$4w67D0BGlpeQNf2ug49Xpujz0nY5reI.DD8V9wYBrh34K7l3hYNTu")
 
   classroom   Classroom? @relation(fields: [classroomId], references: [id])
   classroomId String?

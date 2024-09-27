@@ -27,7 +27,7 @@ export async function createNewCatechist({
   classroomId,
 }: CreateNewCatechistRequest) {
   const password_hash = await hash('123456', 6)
-  const newCatechist = await prisma.catechist.create({
+  const catechist = await prisma.catechist.create({
     data: {
       name,
       birthday,
@@ -43,5 +43,5 @@ export async function createNewCatechist({
     },
   })
 
-  return { newCatechist }
+  return { catechist }
 }
