@@ -6,6 +6,7 @@ import { deleteCatechizing } from '@/use-cases/catechizing/deleteCatechizing'
 import { transferClassCatechizing } from '@/use-cases/catechizing/transferClassCatechizing'
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
+import { updateParent } from '@/use-cases/parent/updateParent'
 
 export class catechizing {
   static async createNew(request: FastifyRequest, reply: FastifyReply) {
@@ -93,6 +94,11 @@ export class catechizing {
         hasReceivedBaptism: z.boolean(),
         hasReceivedEucharist: z.boolean(),
         hasReceivedMarriage: z.boolean(),
+        parents: z.object({
+          name: z.string(),
+          phone: z.string(),
+          kinship: z.string(),
+        }),
       })
 
       const {
@@ -104,6 +110,7 @@ export class catechizing {
         hasReceivedBaptism,
         hasReceivedEucharist,
         hasReceivedMarriage,
+        parents,
       } = updateCatechizingBodySchema.parse(request.body)
 
       const { catechizing } = await updateCatechizing({
@@ -116,6 +123,8 @@ export class catechizing {
         hasReceivedEucharist,
         hasReceivedMarriage,
       })
+
+      await updateParent({ catechizingId: id, parents })
 
       return reply.status(201).send({
         message: 'Catequizando atualizado',

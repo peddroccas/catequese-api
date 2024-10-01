@@ -67,7 +67,7 @@ model Parent {
   kinship String
 
   catechizing   Catechizing @relation(fields: [catechizingId], references: [id], onDelete: Cascade)
-  catechizingId String
+  catechizingId String      @unique
 
   @@map("parents")
 }
