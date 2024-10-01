@@ -21,6 +21,7 @@ enum Role {
 model Catechist {
   id       String   @id @default(uuid())
   name     String
+  nickname String   @default("")
   role     Role     @default(MEMBER)
   birthday DateTime
   phone    String

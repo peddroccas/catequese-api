@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma'
 interface UpdateCatechistRequest {
   catechistId: string
   name: string
+  nickname: string
   address: string
   email: string
   birthday: Date
@@ -14,6 +15,7 @@ interface UpdateCatechistRequest {
 
 export async function updateCatechist({
   name,
+  nickname,
   birthday,
   address,
   catechistId,
@@ -27,6 +29,7 @@ export async function updateCatechist({
     where: { id: catechistId },
     data: {
       name,
+      nickname,
       address,
       email,
       birthday,

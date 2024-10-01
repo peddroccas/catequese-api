@@ -9,7 +9,7 @@ export async function getClassroomsNames() {
       startedAt: true,
       catechists: {
         select: {
-          name: true,
+          nickname: true,
         },
       },
     },
@@ -21,13 +21,13 @@ export async function getClassroomsNames() {
     roomNumber: number
     startedAt: number
     catechists: {
-      name: string
+      nickname: string
     }[]
   }[] = []
   classrooms.forEach((classroom) => {
     classroomNames.push({
       id: classroom.id,
-      name: `Turma ${classroom.roomNumber} - ${classroom.catechists.map((catechist) => catechist.name.split(' ')[0]).join(' e ')}`,
+      name: `Turma ${classroom.roomNumber} - ${classroom.catechists.map((catechist) => catechist.nickname).join(' e ')}`,
       startedAt: classroom.startedAt,
       roomNumber: Number(classroom.roomNumber),
       catechists: classroom.catechists,

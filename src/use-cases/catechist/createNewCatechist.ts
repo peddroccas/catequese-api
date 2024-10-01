@@ -3,6 +3,7 @@ import { hash } from 'bcryptjs'
 
 interface CreateNewCatechistRequest {
   name: string
+  nickname: string
   birthday: Date
   phone: string
   address: string
@@ -17,6 +18,7 @@ interface CreateNewCatechistRequest {
 
 export async function createNewCatechist({
   name,
+  nickname,
   birthday,
   address,
   phone,
@@ -32,6 +34,7 @@ export async function createNewCatechist({
   const catechist = await prisma.catechist.create({
     data: {
       name,
+      nickname,
       birthday,
       phone,
       password_hash,

@@ -70,6 +70,7 @@ export class catechist {
     try {
       const newCatechistBodySchema = z.object({
         name: z.string(),
+        nickname: z.string(),
         birthday: z.coerce.date(),
         phone: z.string(),
         email: z.string().email(),
@@ -84,6 +85,7 @@ export class catechist {
 
       const {
         name,
+        nickname,
         birthday,
         phone,
         address,
@@ -98,6 +100,7 @@ export class catechist {
 
       const { catechist } = await createNewCatechist({
         name,
+        nickname,
         birthday,
         phone,
         address,
@@ -167,6 +170,7 @@ export class catechist {
       })
       const updateCatechistBodySchema = z.object({
         name: z.string(),
+        nickname: z.string(),
         birthday: z.coerce.date(),
         address: z.string(),
         email: z.string().email(),
@@ -178,6 +182,7 @@ export class catechist {
 
       const {
         name,
+        nickname,
         address,
         birthday,
         email,
@@ -191,6 +196,7 @@ export class catechist {
       const { catechist } = await updateCatechist({
         catechistId,
         name,
+        nickname,
         address,
         birthday,
         email,

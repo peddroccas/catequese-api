@@ -6,6 +6,7 @@ export async function getAllCatechists() {
       id: true,
       address: true,
       birthday: true,
+      nickname: true,
       classroomId: true,
       name: true,
       phone: true,

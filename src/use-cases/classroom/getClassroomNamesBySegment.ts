@@ -21,7 +21,7 @@ export async function getClassroomsNamesBySegment({
       roomNumber: true,
       catechists: {
         select: {
-          name: true,
+          nickname: true,
         },
       },
     },
@@ -34,7 +34,7 @@ export async function getClassroomsNamesBySegment({
   classrooms.forEach((classroom) => {
     classroomNames.push({
       id: classroom.id,
-      classroomName: `Turma ${classroom.roomNumber} - ${classroom.catechists.map((catechist) => catechist.name.split(' ')[0]).join(' e ')}`,
+      classroomName: `Turma ${classroom.roomNumber} - ${classroom.catechists.map((catechist) => catechist.nickname).join(' e ')}`,
     })
   })
 

@@ -12,6 +12,7 @@ export async function getCatechist({ id }: getCatechistRequest) {
       address: true,
       birthday: true,
       classroomId: true,
+      nickname: true,
       name: true,
       phone: true,
       email: true,
