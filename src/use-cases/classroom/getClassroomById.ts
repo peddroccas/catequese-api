@@ -7,37 +7,55 @@ interface GetClassroomByIdRequest {
 export async function getClassroomById({
   classroomId,
 }: GetClassroomByIdRequest) {
-  const classroom = await prisma.classroom.findUnique({
-    where: { id: classroomId },
-    select: {
-      catechizings: {
-        orderBy: { name: 'asc' },
-        select: {
-          id: true,
-          name: true,
-          address: true,
-          birthday: true,
-          classroomId: true,
-          hasReceivedBaptism: true,
-          hasReceivedEucharist: true,
-          hasReceivedMarriage: true,
-          personWithSpecialNeeds: true,
-          payments: true,
-          parents: { select: { name: true, phone: true, kinship: true } },
+  const classroom = await prisma.classroom
+    .findUnique({
+      where: { id: classroomId },
+      select: {
+        catechizings: {
+          orderBy: { name: 'asc' },
+          select: {
+            id: true,
+            name: true,
+            address: true,
+            birthday: true,
+            classroomId: true,
+            hasReceivedBaptism: true,
+            hasReceivedEucharist: true,
+            hasReceivedMarriage: true,
+            personWithSpecialNeeds: true,
+            payments: true,
+            parents: {
+              select: {
+                name: true,
+                phone: true,
+                kinship: true,
+              },
+            },
+          },
+        },
+        id: true,
+        segment: true,
+        startedAt: true,
+        roomNumber: true,
+        catechists: {
+          select: {
+            id: true,
+            name: true,
+          },
         },
       },
-      id: true,
-      segment: true,
-      startedAt: true,
-      roomNumber: true,
-      catechists: {
-        select: {
-          id: true,
-          name: true,
-        },
-      },
-    },
-  })
+    })
+    .then((classroom) => {
+      return {
+        ...classroom,
+        catechizings: classroom?.catechizings.map((catechizing) => {
+          return {
+            ...catechizing,
+            parents: catechizing.parents[0],
+          }
+        }),
+      }
+    })
 
   return { classroom }
 }
