@@ -79,6 +79,7 @@ export class catechist {
         hasReceivedConfirmation: z.boolean(),
         hasReceivedMarriage: z.boolean(),
         classroomId: z.optional(z.string().uuid()),
+        role: z.enum(['MEMBER', 'COORDINATOR']),
       })
 
       const {
@@ -92,9 +93,10 @@ export class catechist {
         hasReceivedEucharist,
         hasReceivedMarriage,
         classroomId,
+        role,
       } = newCatechistBodySchema.parse(request.body)
 
-      const { newCatechist } = await createNewCatechist({
+      const { catechist } = await createNewCatechist({
         name,
         birthday,
         phone,
@@ -105,9 +107,10 @@ export class catechist {
         hasReceivedEucharist,
         hasReceivedMarriage,
         classroomId,
+        role,
       })
 
-      return reply.status(201).send(newCatechist)
+      return reply.status(201).send(catechist)
     } catch (error) {
       return reply.status(500).send(error)
     }

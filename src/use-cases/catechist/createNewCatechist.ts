@@ -12,6 +12,7 @@ interface CreateNewCatechistRequest {
   hasReceivedEucharist: boolean
   hasReceivedMarriage: boolean
   classroomId?: string
+  role: 'MEMBER' | 'COORDINATOR'
 }
 
 export async function createNewCatechist({
@@ -25,6 +26,7 @@ export async function createNewCatechist({
   hasReceivedEucharist,
   hasReceivedMarriage,
   classroomId,
+  role,
 }: CreateNewCatechistRequest) {
   const password_hash = await hash('123456', 6)
   const catechist = await prisma.catechist.create({
@@ -40,6 +42,7 @@ export async function createNewCatechist({
       hasReceivedEucharist,
       hasReceivedMarriage,
       classroomId,
+      role,
     },
   })
 
