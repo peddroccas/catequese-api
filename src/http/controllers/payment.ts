@@ -1,12 +1,12 @@
 import { createNewInstallment } from '@/use-cases/payment/createNewInstallment'
 import { getPaymentByCatechizing } from '@/use-cases/payment/getPaymentByCatechizing'
-import { FastifyRequest, FastifyReply } from 'fastify'
+import type { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 
 export class payment {
   static async createNewInstallment(
     request: FastifyRequest,
-    reply: FastifyReply,
+    reply: FastifyReply
   ) {
     try {
       const newInstallmentParamsSchema = z.object({

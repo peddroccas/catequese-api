@@ -1,4 +1,4 @@
-import { catechizing } from '@/controllers/catechizing'
+import { catechizing } from '@/http/controllers/catechizing'
 import { prisma } from '@/lib/prisma'
 
 export async function getAllCatechizing() {
@@ -19,10 +19,10 @@ export async function getAllCatechizing() {
       },
       orderBy: { name: 'asc' },
     })
-    .then((catechizings) =>
-      catechizings.map((catechizing) => {
+    .then(catechizings =>
+      catechizings.map(catechizing => {
         return { ...catechizing, parents: catechizing.parents[0] }
-      }),
+      })
     )
 
   return { catechizings }

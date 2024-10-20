@@ -21,7 +21,9 @@ async function seed() {
     hasReceivedEucharist: true,
     hasReceivedMarriage: true,
     phone: '61999016604',
-  }).then((response) => response.catechist)
+    nickname: 'pedro',
+    role: 'COORDINATOR',
+  }).then(response => response.catechist)
 
   const catechist2 = await createNewCatechist({
     name: 'Julia Guimarães Porto',
@@ -33,7 +35,9 @@ async function seed() {
     hasReceivedEucharist: true,
     hasReceivedMarriage: true,
     phone: '61999016604',
-  }).then((response) => response.catechist)
+    nickname: 'pedro',
+    role: 'COORDINATOR',
+  }).then(response => response.catechist)
 
   const catechist3 = await createNewCatechist({
     name: 'Levi Porto Bernardes',
@@ -45,28 +49,30 @@ async function seed() {
     hasReceivedEucharist: true,
     hasReceivedMarriage: true,
     phone: '61999016604',
-  }).then((response) => response.catechist)
+    nickname: 'pedro',
+    role: 'COORDINATOR',
+  }).then(response => response.catechist)
 
   const classroom1 = await createNewClassroom({
     startedAt: 2023,
     catechists: [catechist1.id],
     roomNumber: 1,
     segment: 'Crisma',
-  }).then((response) => response.classroom)
+  }).then(response => response.classroom)
 
   const classroom2 = await createNewClassroom({
     startedAt: 2024,
     catechists: [catechist2.id],
     roomNumber: 2,
     segment: 'Crisma',
-  }).then((response) => response.classroom)
+  }).then(response => response.classroom)
 
   const classroom3 = await createNewClassroom({
     startedAt: 2024,
     catechists: [catechist3.id],
     roomNumber: 3,
     segment: 'Crisma',
-  }).then((response) => response.classroom)
+  }).then(response => response.classroom)
 
   await createNewCatechizing({
     name: 'João Silva',

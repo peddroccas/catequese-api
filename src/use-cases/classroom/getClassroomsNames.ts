@@ -1,7 +1,7 @@
 import { prisma } from '@/lib/prisma'
 
-export async function getClassroomsNames() {
-  const classrooms = await prisma.classroom.findMany({
+export async function getClassrooms() {
+  const classroomsWithoutNames = await prisma.classroom.findMany({
     orderBy: { roomNumber: 'asc' },
     select: {
       id: true,
@@ -15,7 +15,7 @@ export async function getClassroomsNames() {
     },
   })
 
-  const classroomNames: {
+  const classrooms: {
     id: string
     name: string
     roomNumber: number
@@ -24,15 +24,15 @@ export async function getClassroomsNames() {
       nickname: string
     }[]
   }[] = []
-  classrooms.forEach((classroom) => {
-    classroomNames.push({
+  classroomsWithoutNames.forEach(classroom => {
+    classrooms.push({
       id: classroom.id,
-      name: `Turma ${classroom.roomNumber} - ${classroom.catechists.map((catechist) => catechist.nickname).join(' e ')}`,
+      name: `Turma ${classroom.roomNumber} - ${classroom.catechists.map(catechist => catechist.nickname).join(' e ')}`,
       startedAt: classroom.startedAt,
       roomNumber: Number(classroom.roomNumber),
       catechists: classroom.catechists,
     })
   })
 
-  return { classroomNames }
+  return { classrooms }
 }

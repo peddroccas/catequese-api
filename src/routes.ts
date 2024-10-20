@@ -1,4 +1,4 @@
-import { FastifyInstance } from 'fastify'
+import type { FastifyInstance } from 'fastify'
 import { classroomsRoutes } from './routes/classroomRouter'
 import { catechistsRoutes } from './routes/catechistRouter'
 import { catechizingRoutes } from './routes/catechizingRouter'

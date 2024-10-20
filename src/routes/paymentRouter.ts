@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify'
-import { payment } from '../controllers/payment'
+import { payment } from '../http/controllers/payment'
 
 export async function PaymentRoutes(app: FastifyInstance) {
   app.post('/payments/:catechizingId', payment.createNewInstallment)

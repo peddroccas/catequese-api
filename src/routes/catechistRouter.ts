@@ -1,5 +1,5 @@
-import { FastifyInstance } from 'fastify'
-import { catechist } from '../controllers/catechist'
+import type { FastifyInstance } from 'fastify'
+import { catechist } from '../http/controllers/catechist'
 
 export async function catechistsRoutes(app: FastifyInstance) {
   app.patch('/signUp', catechist.signUp)

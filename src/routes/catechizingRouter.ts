@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify'
-import { catechizing } from '../controllers/catechizing'
+import { catechizing } from '../http/controllers/catechizing'
 
 export async function catechizingRoutes(app: FastifyInstance) {
   app.post('/catechizings/new', catechizing.createNew)
