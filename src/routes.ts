@@ -1,5 +1,5 @@
 import type { FastifyInstance } from 'fastify'
-import { classroomsRoutes } from './routes/classroomRouter'
+import { classroomsRoutes } from './http/controllers/classroom'
 import { catechistsRoutes } from './routes/catechistRouter'
 import { catechizingRoutes } from './routes/catechizingRouter'
 import { PaymentRoutes } from './routes/paymentRouter'
