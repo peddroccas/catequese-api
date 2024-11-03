@@ -4,7 +4,7 @@ import { getAllCatechists } from '@/use-cases/catechist/getAllCatechist'
 import { updateCatechist } from '@/use-cases/catechist/updateCatechist'
 import { deleteCatechist } from '@/use-cases/catechist/deleteCatechist'
 import { z } from 'zod'
-import { FastifyRequest, FastifyReply } from 'fastify'
+import type { FastifyRequest, FastifyReply } from 'fastify'
 import { signUp } from '@/use-cases/catechist/signUp'
 import { hasSetPassword } from '@/use-cases/catechist/hasSetPassword'
 import { login } from '@/use-cases/catechist/login'
@@ -31,7 +31,7 @@ export class catechist {
           sign: {
             sub: catechist.id,
           },
-        },
+        }
       )
 
       return reply.status(201).send({
@@ -127,7 +127,7 @@ export class catechist {
       })
 
       const { classroomId, id } = transferClassCatechistBodySchema.parse(
-        request.body,
+        request.body
       )
 
       const { catechist } = await transferClassCatechist({ id, classroomId })
