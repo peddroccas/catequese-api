@@ -4,7 +4,7 @@ import { getAllCatechizing } from '@/use-cases/catechizing/getAllCatechizing'
 import { updateCatechizing } from '@/use-cases/catechizing/updateCatechizing'
 import { deleteCatechizing } from '@/use-cases/catechizing/deleteCatechizing'
 import { transferClassCatechizing } from '@/use-cases/catechizing/transferClassCatechizing'
-import { FastifyRequest, FastifyReply } from 'fastify'
+import type { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { updateParent } from '@/use-cases/parent/updateParent'
 
@@ -13,7 +13,7 @@ export class catechizing {
     try {
       const newCatechizingBodySchema = z.object({
         name: z.string(),
-        birthday: z.coerce.date(),
+        birthday: z.string(),
         address: z.string(),
         classroomId: z.string().uuid(),
         personWithSpecialNeeds: z.boolean(),
@@ -39,9 +39,10 @@ export class catechizing {
         parents,
       } = newCatechizingBodySchema.parse(request.body)
 
+      const date = new Date(birthday)
       const { catechizing } = await createNewCatechizing({
         address,
-        birthday,
+        birthday: date,
         classroomId,
         hasReceivedBaptism,
         hasReceivedEucharist,
@@ -64,7 +65,7 @@ export class catechizing {
       })
 
       const { classroomId } = catechizingsPerClassroomParamsSchema.parse(
-        request.params,
+        request.params
       )
       const { catechizings } = await getCatechizingByClassroom({ classroomId })
 
@@ -161,7 +162,7 @@ export class catechizing {
       })
 
       const { id, classroomId } = transferClassCatechizingBodySchema.parse(
-        request.body,
+        request.body
       )
 
       const { catechizing } = await transferClassCatechizing({
