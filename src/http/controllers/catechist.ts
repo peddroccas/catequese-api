@@ -92,7 +92,7 @@ export class catechist {
       const newCatechistBodySchema = z.object({
         name: z.string(),
         nickname: z.string(),
-        birthday: z.coerce.date(),
+        birthday: z.string(),
         phone: z.string(),
         email: z.string().email(),
         address: z.string(),
@@ -119,10 +119,13 @@ export class catechist {
         role,
       } = newCatechistBodySchema.parse(request.body)
 
+      const date = new Date(birthday)
+      console.log(date)
+
       const { catechist } = await createNewCatechist({
         name,
         nickname,
-        birthday,
+        birthday: date,
         phone,
         address,
         email: email.toLowerCase(),
