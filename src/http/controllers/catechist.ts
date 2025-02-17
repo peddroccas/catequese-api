@@ -9,6 +9,7 @@ import { signUp } from '@/use-cases/catechist/signUp'
 import { hasSetPassword } from '@/use-cases/catechist/hasSetPassword'
 import { login } from '@/use-cases/catechist/login'
 import { getCatechist } from '@/use-cases/catechist/getCatechist'
+import { updatePassword } from '@/use-cases/catechist/updatePassword'
 
 export class catechist {
   static async login(request: FastifyRequest, reply: FastifyReply) {
@@ -63,6 +64,26 @@ export class catechist {
       return reply.status(201).send({ message })
     } catch (error) {
       return reply.status(500).send({ message: error })
+    }
+  }
+
+  static async updatePassword(request: FastifyRequest, reply: FastifyReply) {
+    try {
+      const updatePasswordParamsSchema = z.object({
+        catechistId: z.string().uuid(),
+      })
+      const updatePasswordBodySchema = z.object({
+        password: z.string().min(6),
+      })
+
+      const { password } = updatePasswordBodySchema.parse(request.body)
+      const { catechistId } = updatePasswordParamsSchema.parse(request.params)
+
+      await updatePassword({ catechistId, password })
+
+      return reply.status(200).send()
+    } catch (error) {
+      return reply.status(400).send(error)
     }
   }
 
