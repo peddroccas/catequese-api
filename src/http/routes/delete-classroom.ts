@@ -3,7 +3,7 @@ import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 
 export const deleteClassroomRoute: FastifyPluginAsyncZod = async app => {
-  app.get(
+  app.delete(
     '/classrooms/:classroomId',
     {
       schema: {
