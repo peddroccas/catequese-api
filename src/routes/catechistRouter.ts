@@ -4,6 +4,7 @@ import { catechist } from '../http/controllers/catechist'
 export async function catechistsRoutes(app: FastifyInstance) {
   app.patch('/signUp', catechist.signUp)
   app.post('/login', catechist.login)
+  app.patch('/update-password', catechist.updatePassword)
   app.post('/catechists', catechist.createNew)
   app.patch('/catechists/transfer', catechist.transferClass)
   app.get('/catechists', catechist.getAll)
