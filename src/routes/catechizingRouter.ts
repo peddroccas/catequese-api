@@ -9,5 +9,8 @@ export async function catechizingRoutes(app: FastifyInstance) {
   app.put('/catechizings', catechizing.update)
   app.patch('/catechizings/transfer', catechizing.transferClass)
   app.delete('/catechizings/:catechizingId', catechizing.delete)
-  app.post('/catechizing/update-default', () => updateValueCatechizing)
+  app.post(
+    '/catechizing/update-default',
+    async () => await updateValueCatechizing()
+  )
 }
