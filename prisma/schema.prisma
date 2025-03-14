@@ -87,7 +87,7 @@ model Classroom {
 
 model Payment {
   id                String  @id @default(uuid())
-  toBePaid          Float   @default(250)
+  toBePaid          Float   @default(350)
   hasReceivedTicket Boolean @default(false)
 
   catechizing   Catechizing @relation(fields: [catechizingId], references: [id], onDelete: Cascade)
