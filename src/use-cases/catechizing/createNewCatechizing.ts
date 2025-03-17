@@ -52,9 +52,9 @@ export async function createNewCatechizing({
                 select: { startedAt: true },
                 where: { id: classroomId },
               })
-              .then((startedAt) => startedAt?.startedAt)) === 2023
+              .then(startedAt => startedAt?.startedAt)) === 2023
               ? 150
-              : 250,
+              : 350,
         },
       },
     },
